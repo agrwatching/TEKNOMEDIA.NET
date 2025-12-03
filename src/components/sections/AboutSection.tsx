@@ -22,31 +22,6 @@ export const partners = [
     description: "Mitra resmi penyedia layanan internet & infrastruktur jaringan terpercaya.",
     website: "https://vtnet.id/"
   },
-  {
-    id: 2,
-    logo: "/vtnet.png",
-    name: "Partner 2",
-    category: "IT Solutions",
-    description: "Solusi teknologi informasi terpadu untuk bisnis modern.",
-    website: "https://example.com"
-  },
-  {
-    id: 3,
-    logo: "/vtnet.png",
-    name: "Partner 3",
-    category: "Cloud Services",
-    description: "Layanan cloud computing dan hosting berkualitas tinggi.",
-    website: "https://example.com"
-  },
-  {
-    id: 4,
-    logo: "/vtnet.png",
-    name: "Partner 4",
-    category: "Cybersecurity",
-    description: "Perlindungan keamanan siber untuk infrastruktur digital Anda.",
-    website: "https://example.com"
-  },
-  // Tambahkan mitra baru di sini
 ];
 
 // Data Misi
