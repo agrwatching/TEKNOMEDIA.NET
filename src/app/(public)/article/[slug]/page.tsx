@@ -233,19 +233,24 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
               </div>
 
-              {/* Article Content */}
+              {/* Article Content - Newspaper Style */}
               <div 
-                className="prose prose-invert prose-lg max-w-none
-                  prose-headings:text-white prose-headings:font-bold
-                  prose-p:text-slate-300 prose-p:leading-relaxed
+                className="article-content prose prose-invert prose-lg max-w-none
+                  [&_p]:text-justify [&_p]:hyphens-auto [&_p]:leading-relaxed [&_p]:mb-4
+                  [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-xl [&_img]:shadow-lg [&_img]:border [&_img]:border-blue-500/20
+                  [&_img:first-of-type]:float-left [&_img:first-of-type]:mr-6 [&_img:first-of-type]:mb-4 [&_img:first-of-type]:max-w-[45%]
+                  [&_img:nth-of-type(2)]:float-right [&_img:nth-of-type(2)]:ml-6 [&_img:nth-of-type(2)]:mb-4 [&_img:nth-of-type(2)]:max-w-[45%]
+                  [&_img:nth-of-type(3)]:float-left [&_img:nth-of-type(3)]:mr-6 [&_img:nth-of-type(3)]:mb-4 [&_img:nth-of-type(3)]:max-w-[45%]
+                  md:[&_img]:float-none md:[&_img]:max-w-full md:[&_img]:mx-0 md:[&_img]:my-4
+                  after:content-[''] after:table after:clear-both
+                  prose-headings:text-white prose-headings:font-bold prose-headings:clear-both prose-headings:pt-4
                   prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-cyan-400
                   prose-strong:text-white prose-strong:font-bold
-                  prose-ul:text-slate-300 prose-ol:text-slate-300
+                  prose-ul:text-slate-300 prose-ul:clear-both prose-ol:text-slate-300
                   prose-li:text-slate-300
-                  prose-blockquote:border-l-blue-500 prose-blockquote:text-blue-300
+                  prose-blockquote:border-l-blue-500 prose-blockquote:text-blue-300 prose-blockquote:clear-both
                   prose-code:text-cyan-400 prose-code:bg-slate-950 prose-code:px-2 prose-code:py-1 prose-code:rounded
-                  prose-pre:bg-slate-950 prose-pre:border prose-pre:border-blue-500/20
-                  prose-img:rounded-xl prose-img:shadow-lg prose-img:border prose-img:border-blue-500/20"
+                  prose-pre:bg-slate-950 prose-pre:border prose-pre:border-blue-500/20 prose-pre:clear-both"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
 
