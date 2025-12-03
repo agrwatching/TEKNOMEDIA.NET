@@ -30,7 +30,7 @@ export default function HomePage() {
         <TestimonialsSection />
         <TeamSection limit={4} showViewAll={true} />
         <GaleryTeam limit={3} showViewAll={true} />
-        <PortalBeritaSection/>
+        <PortalBeritaSection limit={3} showViewAll={true} />
       </main>
       <Footer />
     </>
