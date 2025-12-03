@@ -13,7 +13,7 @@ const ConsultationPage: React.FC = () => {
   return (
     <div className="flex flex-col bg-slate-900">
       <PublicHeader />
-      <main className="flex-grow py-8"> 
+      <main className="flex-grow py-8 bg-gradient-to-b from-gray-50 via-white to-gray-50"> 
         <Consultation />
       </main>
       <PublicFooter />

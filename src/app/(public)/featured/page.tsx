@@ -14,7 +14,7 @@ const FeaturedPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen bg-slate-900">
       <PublicHeader />
-      <main className="flex-grow py-8"> 
+      <main className="flex-grow py-8 bg-white"> 
         <Featured />
       </main>
       <PublicFooter />

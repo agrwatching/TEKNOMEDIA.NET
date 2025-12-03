@@ -231,7 +231,7 @@ const PublicFooter: React.FC = () => {
                 // Link navigasi menggunakan smooth scroll ke ID elemen
                 { id: "about", text: "Tentang Kami" },
                 { id: "company", text: "Karir" },
-                { id: "blog", text: "Blog" },
+                { id: "/blog", text: "Blog" },
                 { id: "team", text: "Partnership" },
               ].map((item, idx) => (
                 <li
