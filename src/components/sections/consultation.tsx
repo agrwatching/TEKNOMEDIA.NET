@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import {
   CheckCircle2,
   Sparkles,
@@ -47,6 +47,7 @@ const ConsultationSection = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isInitialMount = useRef(true);
 
   const services = [
     'Kelas Industri & Teaching Factory',
@@ -68,8 +69,20 @@ const ConsultationSection = () => {
     { field: 'message', question: 'Ada pesan atau kebutuhan khusus yang ingin Anda sampaikan? (Optional - ketik "skip" untuk melewati)', type: 'textarea' }
   ];
 
+  useLayoutEffect(() => {
+    // Force reset scroll SEBELUM browser paint
+    if (isInitialMount.current && messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = 0;
+    }
+  }, []);
+
   useEffect(() => {
-    scrollToBottom();
+    // Mark bahwa initial mount sudah selesai
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      scrollToBottom();
+    }
   }, [messages]);
 
   useEffect(() => {
@@ -77,7 +90,7 @@ const ConsultationSection = () => {
   }, [currentStep]);
 
   const scrollToBottom = () => {
-    if (messagesContainerRef.current) {
+    if (messagesContainerRef.current && !isInitialMount.current) {
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
   };
@@ -109,10 +122,8 @@ const ConsultationSection = () => {
     addUserMessage(userInput);
     setCurrentInput('');
 
-    // Process user input
     const currentQuestion = questions[currentStep];
     
-    // Handle skip
     if (userInput.toLowerCase() === 'skip' && 
         (currentQuestion.field === 'company' || 
          currentQuestion.field === 'preferredDate' || 
@@ -129,7 +140,6 @@ const ConsultationSection = () => {
       return;
     }
 
-    // Validate and save data
     if (currentQuestion.type === 'select') {
       const serviceIndex = parseInt(userInput) - 1;
       if (serviceIndex >= 0 && serviceIndex < services.length) {
@@ -188,7 +198,6 @@ const ConsultationSection = () => {
         }, 800);
       }
     } else {
-      // For text, date, time, textarea
       setFormData(prev => ({ ...prev, [currentQuestion.field]: userInput }));
       setTimeout(() => {
         if (currentStep < questions.length - 1) {
@@ -248,109 +257,11 @@ const ConsultationSection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden">
-      {/* CUSTOM SCROLLBAR STYLES */}
-      <style>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #6366f1, #a855f7);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #4f46e5, #9333ea);
-        }
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes fade-in-down {
-          from {
-            opacity: 0;
-            transform: translateY(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes fade-in-left {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        @keyframes fade-in-right {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        @keyframes float-slow {
-          0%, 100% { transform: translate(0, 0); }
-          50% { transform: translate(30px, -30px); }
-        }
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.7; transform: scale(1.05); }
-        }
-        @keyframes pulse-glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6); }
-        }
-        @keyframes gradient-x {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-fade-in-up { animation: fade-in-up 0.8s ease-out; }
-        .animate-fade-in-down { animation: fade-in-down 0.8s ease-out; }
-        .animate-fade-in-left { animation: fade-in-left 0.8s ease-out; }
-        .animate-fade-in-right { animation: fade-in-right 0.8s ease-out; }
-        .animate-fade-in { animation: fade-in 0.6s ease-out; }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
-        .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
-        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
-        .animate-gradient-x { 
-          background-size: 200% 200%;
-          animation: gradient-x 3s ease infinite;
-        }
-      `}</style>
-
+    <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden">
       {/* ANIMATED BACKGROUND */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-float-slow"></div>
-        <div
-          className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float"
-          style={{ animationDelay: "2s" }}
-        ></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float [animation-delay:2s]"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
       </div>
 
@@ -372,27 +283,18 @@ const ConsultationSection = () => {
             Konsultasi Gratis
           </div>
 
-          <h1
-            className="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up"
-            style={{ animationDelay: "0.1s" }}
-          >
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up [animation-delay:0.1s]">
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient-x">
               Chat dengan Asisten Virtual Kami
             </span>
           </h1>
 
-          <p
-            className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-fade-in-up"
-            style={{ animationDelay: "0.2s" }}
-          >
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-fade-in-up [animation-delay:0.2s]">
             Dapatkan solusi terbaik untuk kebutuhan teknologi dan pendidikan Anda melalui percakapan yang mudah dan cepat.
           </p>
 
           {/* DECORATIVE LINE */}
-          <div
-            className="mt-8 flex justify-center items-center space-x-3 animate-fade-in"
-            style={{ animationDelay: "0.3s" }}
-          >
+          <div className="mt-8 flex justify-center items-center space-x-3 animate-fade-in [animation-delay:0.3s]">
             <div className="h-px w-20 bg-gradient-to-r from-transparent to-indigo-500"></div>
             <div className="w-3 h-3 rounded-full bg-indigo-500 animate-ping"></div>
             <div className="h-px w-20 bg-gradient-to-l from-transparent to-purple-500"></div>
@@ -401,11 +303,8 @@ const ConsultationSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
 
-          {/* RIGHT COLUMN - INFO (Tampil pertama di mobile) */}
-          <div
-            className="space-y-8 animate-fade-in-right lg:order-2 order-1"
-            style={{ animationDelay: "0.5s" }}
-          >
+          {/* RIGHT COLUMN - INFO */}
+          <div className="space-y-8 animate-fade-in-right lg:order-2 order-1 [animation-delay:0.5s]">
             {/* KENAPA MEMILIH KAMI */}
             <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl p-8 md:p-10 text-white shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
@@ -444,10 +343,7 @@ const ConsultationSection = () => {
               </h3>
 
               <div className="space-y-4">
-                <div
-                  className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 hover:shadow-lg transition-all duration-300 animate-fade-in-up"
-                  style={{ animationDelay: "0.7s" }}
-                >
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100 hover:shadow-lg transition-all duration-300 animate-fade-in-up [animation-delay:0.7s]">
                   <div className="p-3 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
                     <Phone className="w-5 h-5" />
                   </div>
@@ -457,10 +353,7 @@ const ConsultationSection = () => {
                   </div>
                 </div>
 
-                <div
-                  className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-100 hover:shadow-lg transition-all duration-300 animate-fade-in-up"
-                  style={{ animationDelay: "0.8s" }}
-                >
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-100 hover:shadow-lg transition-all duration-300 animate-fade-in-up [animation-delay:0.8s]">
                   <div className="p-3 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white">
                     <Mail className="w-5 h-5" />
                   </div>
@@ -473,10 +366,7 @@ const ConsultationSection = () => {
                 </div>
               </div>
 
-              <div
-                className="mt-8 p-4 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 animate-fade-in-up"
-                style={{ animationDelay: "0.9s" }}
-              >
+              <div className="mt-8 p-4 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 animate-fade-in-up [animation-delay:0.9s]">
                 <p className="text-sm text-gray-600 text-center">
                   <strong>Jam Operasional:</strong>
                   <br />
@@ -488,11 +378,8 @@ const ConsultationSection = () => {
             </div>
           </div>
 
-          {/* LEFT COLUMN - CHATBOT (Tampil kedua di mobile) */}
-          <div
-            className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-200/50 relative overflow-hidden animate-fade-in-left flex flex-col h-[600px] lg:h-[800px] lg:order-1 order-2"
-            style={{ animationDelay: "0.4s" }}
-          >
+          {/* LEFT COLUMN - CHATBOT */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-200/50 relative overflow-hidden animate-fade-in-left flex flex-col h-[600px] lg:h-[800px] lg:order-1 order-2 [animation-delay:0.4s]">
             {/* TOP GRADIENT BAR */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
 
@@ -513,10 +400,10 @@ const ConsultationSection = () => {
             </div>
 
             {/* MESSAGES AREA */}
-           <div 
-             ref={messagesContainerRef}
-             className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar"
-           >
+            <div 
+              ref={messagesContainerRef}
+              className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar"
+            >
               {messages.map((msg, index) => (
                 <div
                   key={index}
@@ -541,9 +428,9 @@ const ConsultationSection = () => {
                 <div className="flex justify-start animate-fade-in">
                   <div className="bg-gray-100 rounded-2xl px-4 py-3">
                     <div className="flex gap-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0ms]"></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:150ms]"></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:300ms]"></div>
                     </div>
                   </div>
                 </div>
@@ -585,7 +472,7 @@ const ConsultationSection = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

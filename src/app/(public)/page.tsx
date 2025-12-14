@@ -1,5 +1,4 @@
 // src/app/(public)/page.tsx
-
 import Navbar from "@/components/layout/PublicHeader"; 
 import Footer from "@/components/layout/PublicFooter";
 import HeroSection from "@/components/sections/HeroSection";
@@ -11,6 +10,7 @@ import FeaturedProductsSection from "@/components/sections/FeaturedProductsSecti
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import GaleryTeam from "@/components/sections/GaleryTeam";
 import PortalBeritaSection from "@/components/sections/PortalBeritaSection";
+import PricingSection from "@/components/sections/PricingSection";
 
 // Halaman utama (/)
 export default function HomePage() {
@@ -26,6 +26,7 @@ export default function HomePage() {
         />
         <WhyUsSection />
         <ServicesSection />
+        <PricingSection />
         <FeaturedProductsSection limit={3} showViewAll={true} />
         <TestimonialsSection />
         <TeamSection limit={4} showViewAll={true} />

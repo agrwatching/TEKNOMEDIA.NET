@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { GraduationCap, Server, Wifi, BadgeCheck, Globe, Users } from 'lucide-react';
+import { GraduationCap, Server, Wifi, Globe, Users, Cloud } from 'lucide-react';
 import Link from 'next/link';
 
 // Data Layanan Teknomedia
@@ -12,42 +12,42 @@ const services = [
     title: 'Kelas Industri & Teaching Factory',
     description: 'Program pembelajaran berbasis industri dan praktik langsung yang dirancang sesuai kebutuhan dunia kerja modern.',
     gradient: 'from-indigo-500 to-purple-500',
-    glowColor: 'rgba(255, 165, 0, 0.5)',
+    glowColor: 'rgba(99, 102, 241, 0.5)',
   },
   {
     icon: Users,
     title: 'Jasa Guru Tamu & Pembelajaran Proyek',
     description: 'Menghadirkan praktisi industri untuk mengajar langsung serta membimbing project-based learning di sekolah.',
     gradient: 'from-yellow-500 to-orange-500',
-    glowColor: 'rgba(0, 191, 255, 0.5)',
+    glowColor: 'rgba(251, 146, 60, 0.5)',
   },
   {
     icon: Globe,
     title: 'Program Digital Marketing',
     description: 'Pelatihan dan pendampingan digital marketing untuk sekolah maupun bisnis guna meningkatkan kemampuan branding digital.',
     gradient: 'from-blue-500 to-cyan-500',
-    glowColor: 'rgba(255, 165, 0, 0.5)',
+    glowColor: 'rgba(59, 130, 246, 0.5)',
   },
   {
     icon: Server,
     title: 'IT Solution & Hosting Services',
     description: 'Layanan manajemen server, hosting, website, aplikasi, dan solusi teknologi informasi untuk bisnis dan institusi.',
     gradient: 'from-green-500 to-emerald-500',
-    glowColor: 'rgba(255, 99, 132, 0.5)',
+    glowColor: 'rgba(34, 197, 94, 0.5)',
+  },
+  {
+    icon: Cloud,
+    title: 'Penyedia VPS & Cloud Server',
+    description: 'Layanan Virtual Private Server dan cloud hosting dengan performa tinggi, keamanan maksimal, dan dukungan teknis 24/7.',
+    gradient: 'from-violet-500 to-fuchsia-500',
+    glowColor: 'rgba(168, 85, 247, 0.5)',
   },
   {
     icon: Wifi,
     title: 'Internet Dedicated & Broadband Bisnis',
     description: 'Layanan internet cepat, stabil, dan memiliki SLA profesional untuk sekolah, UMKM, hingga perusahaan besar.',
     gradient: 'from-red-500 to-pink-500',
-    glowColor: 'rgba(0, 191, 255, 0.5)',
-  },
-  {
-    icon: BadgeCheck,
-    title: 'Maintenance & Dukungan Teknis',
-    description: 'Pendampingan dan layanan teknis berkelanjutan untuk memastikan semua layanan berjalan optimal.',
-    gradient: 'from-purple-500 to-fuchsia-500',
-    glowColor: 'rgba(152, 251, 152, 0.5)',
+    glowColor: 'rgba(239, 68, 68, 0.5)',
   },
 ];
 
