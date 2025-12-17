@@ -258,14 +258,8 @@ const ConsultationSection = () => {
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50 relative overflow-hidden">
-      {/* ANIMATED BACKGROUND */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-float-slow"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float [animation-delay:2s]"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
-      </div>
-
-      {/* GRID BACKGROUND */}
+      
+      {/* GRID BACKGROUND - Tetap dipertahankan karena ringan */}
       <div
         className="absolute inset-0 opacity-5 pointer-events-none"
         style={{
@@ -278,7 +272,7 @@ const ConsultationSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10 py-16 md:py-24">
         {/* HEADER SECTION */}
         <div className="text-center mb-16 animate-fade-in-down">
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-600 text-sm font-semibold uppercase tracking-wider border border-indigo-500/20 shadow-[0_0_20px_rgba(99,102,241,0.3)] animate-pulse-glow backdrop-blur-sm mb-6">
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-600 text-sm font-semibold uppercase tracking-wider border border-indigo-500/20 shadow-lg animate-pulse-glow backdrop-blur-sm mb-6">
             <Sparkles className="w-4 h-4" />
             Konsultasi Gratis
           </div>
@@ -307,9 +301,7 @@ const ConsultationSection = () => {
           <div className="space-y-8 animate-fade-in-right lg:order-2 order-1 [animation-delay:0.5s]">
             {/* KENAPA MEMILIH KAMI */}
             <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl p-8 md:p-10 text-white shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-
+              
               <h3 className="text-2xl font-bold mb-6 relative z-10">
                 Kenapa Memilih Teknomedia?
               </h3>

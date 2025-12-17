@@ -20,12 +20,12 @@ interface TeamMember {
   facebook: string;
   twitter: string;
   whatsapp: string;
-  isCore?: boolean; // Tandai apakah team inti
+  isCore?: boolean;
 }
 
 interface TeamSectionProps {
-  limit?: number; // Batasi jumlah yang ditampilkan
-  showViewAll?: boolean; // Tampilkan tombol "Lihat Semua Tim"
+  limit?: number;
+  showViewAll?: boolean;
 }
 
 // Data Anggota Tim
@@ -82,7 +82,6 @@ const teamMembers: TeamMember[] = [
     whatsapp: "628123456789",
     isCore: true,
   },
-  // Tambahkan member lainnya di sini (non-core team)
 ];
 
 const TeamSection: React.FC<TeamSectionProps> = ({
@@ -99,30 +98,12 @@ const TeamSection: React.FC<TeamSectionProps> = ({
       id="team"
       className="py-16 md:py-24 bg-slate-900 relative overflow-hidden"
     >
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className="absolute inset-0 animate-[gridMove_20s_linear_infinite]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(99, 102, 241, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.3) 1px, transparent 1px)",
-            backgroundSize: "50px 50px",
-          }}
-        />
-      </div>
-
-      {/* Glowing Orbs */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse" />
-      <div
-        className="absolute bottom-20 left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse"
-        style={{ animationDelay: "2s" }}
-      />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        {/* Header Section */}
+        {/* Header Section - Simplified */}
         <div className="text-center mb-16 space-y-4">
           <div className="inline-block">
-            <h2 className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-2 animate-pulse">
+            <h2 className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-2">
               <span className="inline-block mr-2">⚡</span>{" "}
               {limit ? "Tim Inti Kami" : "Meet Our Team"}{" "}
               <span className="inline-block ml-2">⚡</span>
@@ -132,7 +113,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({
 
           <h3 className="mt-4 text-4xl md:text-5xl font-extrabold text-white leading-tight">
             {limit ? "Para Profesional di Balik" : "Kenali Seluruh Tim"}
-            <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
+            <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               {limit ? "Koneksi Andal Anda" : "Profesional Teknomedia"}
             </span>
           </h3>
@@ -142,29 +123,23 @@ const TeamSection: React.FC<TeamSectionProps> = ({
               ? "Kami adalah perpaduan antara teknisi bersertifikasi dan ahli strategi bisnis yang berdedikasi."
               : "Tim lengkap yang siap membantu kesuksesan teknologi dan bisnis Anda."}
           </p>
-
-          <div className="flex items-center justify-center gap-2 mt-8">
-            <div className="h-px w-16 bg-gradient-to-r from-transparent to-indigo-500" />
-            <div className="w-2 h-2 rounded-full bg-indigo-500 animate-ping" />
-            <div className="h-px w-16 bg-gradient-to-l from-transparent to-indigo-500" />
-          </div>
         </div>
 
-        {/* Grid Anggota Tim */}
+        {/* Grid Anggota Tim - SEMUA ANIMASI CARD DIPERTAHANKAN! */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {displayedMembers.map((member, index) => (
             <div
               key={index}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="group relative animate-[slideUp_0.8s_ease-out_both] h-full"
+              className="group relative animate-fade-in-up h-full"
               style={{ animationDelay: `${index * 0.15}s` }}
             >
               <div className="relative h-full flex flex-col bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-6 rounded-2xl border border-indigo-500/30 text-center transition-all duration-500 hover:border-indigo-400 hover:shadow-2xl hover:shadow-indigo-500/30 hover:-translate-y-3 overflow-hidden">
                 <div
                   className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
                     hoveredIndex === index
-                      ? "animate-[shimmer_2s_linear_infinite]"
+                      ? "animate-shimmer"
                       : ""
                   }`}
                   style={{
@@ -214,7 +189,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({
                     <div
                       className={`absolute inset-0 bg-gradient-to-b from-transparent via-white/20 to-transparent ${
                         hoveredIndex === index
-                          ? "animate-[scan_2s_linear_infinite]"
+                          ? "animate-scan"
                           : "opacity-0"
                       }`}
                     />
@@ -243,9 +218,9 @@ const TeamSection: React.FC<TeamSectionProps> = ({
                   </p>
 
                   <div className="pt-3 space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="h-1 bg-gradient-to-r from-indigo-600 to-indigo-400 rounded-full animate-[growBar_1s_ease-out_forwards] w-[85%]" />
-                    <div className="h-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-full animate-[growBar_1.2s_ease-out_forwards] w-[70%]" />
-                    <div className="h-1 bg-gradient-to-r from-pink-600 to-pink-400 rounded-full animate-[growBar_1.4s_ease-out_forwards] w-[90%]" />
+                    <div className="h-1 bg-gradient-to-r from-indigo-600 to-indigo-400 rounded-full animate-expand w-[85%]" />
+                    <div className="h-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-full animate-expand w-[70%]" style={{ animationDelay: '0.2s' }} />
+                    <div className="h-1 bg-gradient-to-r from-pink-600 to-pink-400 rounded-full animate-expand w-[90%]" style={{ animationDelay: '0.4s' }} />
                   </div>
 
                   {/* Social Media Links */}
@@ -304,12 +279,9 @@ const TeamSection: React.FC<TeamSectionProps> = ({
           ))}
         </div>
 
-        {/* Tombol View All - Hanya muncul jika showViewAll = true */}
+        {/* Tombol View All */}
         {showViewAll && (
-          <div
-            className="text-center mt-16 animate-fade-in-up"
-            style={{ animationDelay: "0.8s" }}
-          >
+          <div className="text-center mt-16 animate-fade-in-up" style={{ animationDelay: "0.8s" }}>
             <Link
               href="/team"
               className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg shadow-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/70 hover:scale-105 transition-all duration-300 relative overflow-hidden"

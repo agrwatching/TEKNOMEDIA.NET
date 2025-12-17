@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { ImageIcon, Camera, Eye, ZoomIn, Heart } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import React, { useState, useCallback, useMemo } from "react";
+import { Camera, Eye, ZoomIn, Heart, X, ChevronLeft, ChevronRight, Image } from "lucide-react";
 
 interface GalleryItem {
   id: number;
@@ -15,28 +13,28 @@ interface GalleryItem {
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    image: "/colabvtnet.jpg",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800",
     title: "Meeting & Diskusi Proyek",
     description:
       "Sesi brainstorming bersama tim untuk merancang solusi jaringan sekolah modern.",
   },
   {
     id: 2,
-    image: "/gurutamu.jpg",
+    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800",
     title: "Implementasi Fiber Optik",
     description:
       "Tim lapangan melakukan penarikan kabel dan konfigurasi perangkat FO.",
   },
   {
     id: 3,
-    image: "/elearning.jpg",
+    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800",
     title: "Training E-Learning",
     description:
       "Pelatihan penggunaan platform e-learning untuk guru dan staf sekolah.",
   },
   {
     id: 4,
-    image: "/server.jpg",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800",
     title: "Setup Server Sekolah",
     description:
       "Konfigurasi Windows Server untuk manajemen user dan data sekolah.",
@@ -46,11 +44,11 @@ const galleryItems: GalleryItem[] = [
     image: "/maintenancep.jpg",
     title: "Maintenance Perangkat",
     description:
-      "Pemeliharuan rutin access point dan switch jaringan.",
+      "Pemeliharaan rutin access point dan switch jaringan.",
   },
   {
     id: 6,
-    image: "/colab.png",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
     title: "Kolaborasi Tim",
     description:
       "Dokumentasi kolaborasi internal untuk meningkatkan layanan digital.",
@@ -58,8 +56,8 @@ const galleryItems: GalleryItem[] = [
 ];
 
 interface GaleryTeamProps {
-  limit?: number; // Batasi jumlah galeri yang ditampilkan
-  showViewAll?: boolean; // Tampilkan tombol "Lihat Galeri Lengkap"
+  limit?: number;
+  showViewAll?: boolean;
 }
 
 const GaleryTeam: React.FC<GaleryTeamProps> = ({ 
@@ -68,151 +66,275 @@ const GaleryTeam: React.FC<GaleryTeamProps> = ({
 }) => {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const [likedItems, setLikedItems] = useState<Set<number>>(new Set());
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const toggleLike = (id: number) => {
-    const newLiked = new Set(likedItems);
-    newLiked.has(id) ? newLiked.delete(id) : newLiked.add(id);
-    setLikedItems(newLiked);
-  };
+  const toggleLike = useCallback((id: number) => {
+    setLikedItems(prev => {
+      const newLiked = new Set(prev);
+      newLiked.has(id) ? newLiked.delete(id) : newLiked.add(id);
+      return newLiked;
+    });
+  }, []);
 
-  // Filter gallery berdasarkan limit
-  const displayedGallery = limit 
-    ? galleryItems.slice(0, limit) 
-    : galleryItems;
+  const openModal = useCallback((index: number) => {
+    setCurrentImageIndex(index);
+    setModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setModalOpen(false);
+    document.body.style.overflow = 'unset';
+  }, []);
+
+  const displayedGallery = useMemo(() => 
+    limit ? galleryItems.slice(0, limit) : galleryItems,
+    [limit]
+  );
+
+  const nextImage = useCallback(() => {
+    setCurrentImageIndex((prev) => 
+      prev === displayedGallery.length - 1 ? 0 : prev + 1
+    );
+  }, [displayedGallery.length]);
+
+  const prevImage = useCallback(() => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? displayedGallery.length - 1 : prev - 1
+    );
+  }, [displayedGallery.length]);
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    if (!modalOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [modalOpen, closeModal, prevImage, nextImage]);
 
   return (
-    <section
-      id="galeri-tim"
-      className="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-gray-50 to-white relative overflow-hidden"
-    >
-      {/* Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-        <Camera className="absolute top-20 left-10 w-32 h-32 text-indigo-200 animate-[float_8s_ease-in-out_infinite] rotate-12" />
-        <Camera className="absolute bottom-32 right-20 w-40 h-40 text-purple-200 animate-[float_10s_ease-in-out_infinite] -rotate-12" />
-
-        <div className="absolute top-40 right-10 w-24 h-28 border-8 border-white shadow-lg rotate-12 animate-[sway_6s_ease-in-out_infinite]" />
-        <div className="absolute bottom-40 left-20 w-20 h-24 border-8 border-white shadow-lg -rotate-6 animate-[sway_7s_ease-in-out_infinite]" />
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16 space-y-6">
-          <div className="flex justify-center items-center gap-4 mb-4">
-            <Camera className="w-8 h-8 text-indigo-500 animate-[shake_2s_ease-in-out_infinite]" />
-            <Eye className="w-8 h-8 text-purple-500 animate-pulse" />
-            <ImageIcon className="w-8 h-8 text-pink-500 animate-[shake_2s_ease-in-out_infinite]" />
-          </div>
-
-          <h2 className="text-sm font-bold text-indigo-600 uppercase tracking-[0.2em]">
-            {limit ? 'Galeri Pilihan' : 'Galeri Kegiatan'}
-          </h2>
-
-          <p className="text-4xl md:text-5xl font-extrabold text-gray-900">
-            {limit ? 'Dokumentasi Pilihan' : 'Dokumentasi Tim'}
-            <br />
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Profesional Kami
-            </span>
-          </p>
-
-          <p className="max-w-3xl text-lg text-gray-600 mx-auto leading-relaxed">
-            {limit 
-              ? 'Mengabadikan momen kolaborasi, instalasi jaringan, dan implementasi solusi digital terbaik.'
-              : 'Mengabadikan momen kolaborasi, instalasi jaringan, dan implementasi solusi digital terbaik untuk institusi pendidikan.'
-            }
-          </p>
+    <>
+      <section
+        id="galeri-tim"
+        className="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-gray-50 to-white relative overflow-hidden"
+      >
+        {/* Optimized Background - Reduced to 2 elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+          <Camera 
+            className="absolute top-20 left-10 w-32 h-32 text-indigo-200 animate-float-slow" 
+            style={{ willChange: 'transform' }}
+          />
+          <div 
+            className="absolute bottom-40 right-20 w-24 h-28 border-8 border-indigo-100 shadow-lg rotate-12 animate-sway"
+            style={{ willChange: 'transform' }}
+          />
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayedGallery.map((item, index) => (
-            <div
-              key={item.id}
-              onMouseEnter={() => setHoveredItem(item.id)}
-              onMouseLeave={() => setHoveredItem(null)}
-              className="group relative animate-[zoomIn_0.6s_ease-out_both]"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="relative bg-white rounded-lg shadow-xl border-8 border-white transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 hover:rotate-2 overflow-hidden flex flex-col h-full">
-                
-                {/* Image Container */}
-                <div className="relative h-64 w-full bg-gray-200 overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+          {/* Header - Animated once on load */}
+          <div className="text-center mb-16 space-y-6">
+            <div className="flex justify-center items-center gap-4 mb-4 animate-fade-in-down">
+              <Camera className="w-8 h-8 text-indigo-500" />
+              <Eye className="w-8 h-8 text-purple-500" />
+              <Image className="w-8 h-8 text-pink-500" />
+            </div>
 
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <h2 className="text-sm font-bold text-indigo-600 uppercase tracking-[0.2em] animate-fade-in">
+              {limit ? 'Galeri Pilihan' : 'Galeri Kegiatan'}
+            </h2>
 
-                  {/* Flash */}
-                  <div
-                    className={`absolute inset-0 bg-white ${
-                      hoveredItem === item.id
-                        ? "animate-[flash_0.5s_ease-out]"
-                        : "opacity-0"
-                    }`}
-                  />
+            <p className="text-4xl md:text-5xl font-extrabold text-gray-900 animate-fade-in-up">
+              {limit ? 'Dokumentasi Pilihan' : 'Dokumentasi Tim'}
+              <br />
+              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Profesional Kami
+              </span>
+            </p>
 
-                  {/* Zoom Icon */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <div className="bg-white/90 backdrop-blur-sm rounded-full p-4 transform scale-0 group-hover:scale-100 transition-transform duration-500">
-                      <ZoomIn className="w-8 h-8 text-indigo-600" />
+            <p className="max-w-3xl text-lg text-gray-600 mx-auto leading-relaxed animate-fade-in-up">
+              {limit 
+                ? 'Mengabadikan momen kolaborasi, instalasi jaringan, dan implementasi solusi digital terbaik.'
+                : 'Mengabadikan momen kolaborasi, instalasi jaringan, dan implementasi solusi digital terbaik untuk institusi pendidikan.'
+              }
+            </p>
+          </div>
+
+          {/* Gallery Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {displayedGallery.map((item, index) => (
+              <div
+                key={item.id}
+                onMouseEnter={() => setHoveredItem(item.id)}
+                onMouseLeave={() => setHoveredItem(null)}
+                className="group relative animate-zoom-in"
+                style={{ 
+                  animationDelay: `${index * 0.1}s`,
+                  willChange: 'transform, opacity'
+                }}
+              >
+                <div className="relative bg-white rounded-lg shadow-xl border-8 border-white transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 hover:rotate-2 overflow-hidden flex flex-col h-full">
+                  
+                  {/* Image Container */}
+                  <div className="relative h-64 w-full bg-gray-200 overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      loading={index > 2 ? "lazy" : "eager"}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      style={{ willChange: 'transform' }}
+                    />
+
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    {/* Zoom Icon */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                      <div className="bg-white/90 backdrop-blur-sm rounded-full p-4 transform scale-0 group-hover:scale-100 transition-transform duration-500">
+                        <ZoomIn className="w-8 h-8 text-indigo-600" />
+                      </div>
                     </div>
+
+                    {/* Like Button */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleLike(item.id);
+                      }}
+                      className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                      aria-label="Like photo"
+                    >
+                      <Heart
+                        className={`w-5 h-5 transition-all ${
+                          likedItems.has(item.id)
+                            ? "fill-red-500 text-red-500 scale-110"
+                            : "text-gray-600"
+                        }`}
+                      />
+                    </button>
                   </div>
 
-                  {/* Like */}
-                  <button
-                    onClick={() => toggleLike(item.id)}
-                    className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
-                  >
-                    <Heart
-                      className={`w-5 h-5 transition-all ${
-                        likedItems.has(item.id)
-                          ? "fill-red-500 text-red-500 scale-110"
-                          : "text-gray-600"
-                      }`}
-                    />
-                  </button>
-                </div>
+                  {/* Caption */}
+                  <div className="p-5 space-y-3">
+                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
+                      {item.description}
+                    </p>
 
-                {/* Caption */}
-                <div className="p-5 space-y-3">
-                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
-                    {item.description}
-                  </p>
-
-                  <button className="w-full inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-md hover:shadow-xl transition-all duration-300">
-                    <ImageIcon size={18} className="mr-2" />
-                    Lihat Foto
-                  </button>
+                    <button 
+                      onClick={() => openModal(index)}
+                      className="w-full inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-md hover:shadow-xl transition-all duration-300"
+                    >
+                      <Image size={18} className="mr-2" />
+                      Lihat Foto
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA Button - Hanya muncul jika showViewAll = true */}
-        {showViewAll && (
-          <div className="mt-16 text-center">
-            <Link
-              href="/galeri"
-              className="group inline-flex items-center justify-center px-10 py-4 border-2 border-indigo-600 text-base font-semibold rounded-xl text-indigo-600 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 hover:text-white hover:border-transparent transition-all duration-500 shadow-md hover:shadow-2xl relative overflow-hidden"
-            >
-              <span className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-
-              <Camera className="mr-3 relative z-10" />
-              <span className="relative z-10">Lihat Galeri Lengkap</span>
-            </Link>
+            ))}
           </div>
-        )}
-      </div>
-    </section>
+
+          {/* CTA Button */}
+          {showViewAll && (
+            <div className="mt-16 text-center">
+              <a
+                href="/galeri"
+                className="group inline-flex items-center justify-center px-10 py-4 border-2 border-indigo-600 text-base font-semibold rounded-xl text-indigo-600 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 hover:text-white hover:border-transparent transition-all duration-500 shadow-md hover:shadow-2xl relative overflow-hidden"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+
+                <Camera className="mr-3 relative z-10" />
+                <span className="relative z-10">Lihat Galeri Lengkap</span>
+              </a>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Modal Fullscreen */}
+      {modalOpen && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm animate-fade-in"
+          onClick={closeModal}
+        >
+          {/* Close Button */}
+          <button
+            onClick={closeModal}
+            className="absolute top-4 right-4 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-all duration-300 hover:scale-110"
+            aria-label="Close modal"
+          >
+            <X className="w-6 h-6 text-white" />
+          </button>
+
+          {/* Navigation Buttons */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              prevImage();
+            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-all duration-300 hover:scale-110"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="w-8 h-8 text-white" />
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              nextImage();
+            }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-all duration-300 hover:scale-110"
+            aria-label="Next image"
+          >
+            <ChevronRight className="w-8 h-8 text-white" />
+          </button>
+
+          {/* Image Counter */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full">
+            <span className="text-white font-semibold">
+              {currentImageIndex + 1} / {displayedGallery.length}
+            </span>
+          </div>
+
+          {/* Main Image Container */}
+          <div 
+            className="flex items-center justify-center h-full p-4 md:p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative max-w-6xl w-full animate-zoom-in">
+              <img
+                src={displayedGallery[currentImageIndex].image}
+                alt={displayedGallery[currentImageIndex].title}
+                className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
+              />
+
+              {/* Image Info */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  {displayedGallery[currentImageIndex].title}
+                </h3>
+                <p className="text-gray-200 text-sm">
+                  {displayedGallery[currentImageIndex].description}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Keyboard Hint */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+            Tekan ESC untuk keluar • ← → untuk navigasi
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

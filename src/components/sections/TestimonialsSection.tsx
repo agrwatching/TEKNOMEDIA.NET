@@ -46,84 +46,48 @@ const TestimonialsSection: React.FC = () => {
 
   return (
     <section id="testimonials" className="py-16 md:py-24 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
-      
-      {/* Animated Background Patterns */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
-        {/* Floating Quote Marks */}
-        <div className="absolute top-10 left-10 text-indigo-300/20 text-9xl font-serif animate-[float_6s_ease-in-out_infinite]">"</div>
-        <div className="absolute bottom-20 right-20 text-purple-300/20 text-9xl font-serif animate-[float_8s_ease-in-out_infinite] rotate-180">"</div>
-        
-        {/* Dots Pattern */}
-        <div className="absolute top-1/4 right-1/4 w-3 h-3 bg-indigo-400 rounded-full animate-ping" />
-        <div className="absolute bottom-1/3 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-ping [animation-delay:1s]" />
-        <div className="absolute top-1/2 right-1/3 w-2 h-2 bg-pink-400 rounded-full animate-ping [animation-delay:2s]" />
-        
-        {/* Wave Lines */}
-        <svg className="absolute bottom-0 left-0 w-full h-32 opacity-20" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z" fill="url(#waveGradient)" className="animate-[wave_10s_ease-in-out_infinite]" />
-          <defs>
-            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#818cf8" />
-              <stop offset="50%" stopColor="#a78bfa" />
-              <stop offset="100%" stopColor="#f0abfc" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
         
         {/* Header Section */}
         <div className="text-center mb-16 space-y-6">
-          {/* Trust Badges */}
-          <div className="flex justify-center items-center gap-6 mb-4">
-            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md animate-[bounce_2s_ease-in-out_infinite]">
+          {/* Trust Badges - Static */}
+          <div className="flex justify-center items-center gap-6 mb-4 animate-fade-in">
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md">
               <CheckCircle className="w-5 h-5 text-green-500" />
               <span className="text-sm font-semibold text-gray-700">100% Verified</span>
             </div>
-            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md animate-[bounce_2s_ease-in-out_infinite] [animation-delay:0.5s]">
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-md">
               <TrendingUp className="w-5 h-5 text-indigo-500" />
               <span className="text-sm font-semibold text-gray-700">Top Rated</span>
             </div>
           </div>
 
-          {/* Title Animation */}
+          {/* Title */}
           <div className="space-y-3">
-            <h2 className="text-sm font-bold text-indigo-600 uppercase tracking-[0.2em] animate-[fadeIn_1s_ease-out]">
+            <h2 className="text-sm font-bold text-indigo-600 uppercase tracking-[0.2em] animate-fade-in">
               Apa Kata Klien Kami?
             </h2>
             
             <div className="relative inline-block">
-              <p className="text-4xl md:text-5xl font-extrabold text-gray-900 animate-[fadeInUp_1s_ease-out]">
+              <p className="text-4xl md:text-5xl font-extrabold text-gray-900 animate-fade-in-up">
                 Dipercaya oleh Perusahaan
                 <br />
                 <span className="relative inline-block mt-2">
                   <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                     dan Bisnis Terbaik
                   </span>
-                  {/* Animated Underline */}
-                  <svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 300 12" preserveAspectRatio="none">
-                    <path d="M0,6 Q75,0 150,6 T300,6" fill="none" stroke="url(#underlineGradient)" strokeWidth="3" className="animate-[draw_2s_ease-out_forwards]" />
-                    <defs>
-                      <linearGradient id="underlineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#4f46e5" />
-                        <stop offset="50%" stopColor="#7c3aed" />
-                        <stop offset="100%" stopColor="#ec4899" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
                 </span>
               </p>
             </div>
           </div>
 
-          {/* Rating Stars */}
-          <div className="flex justify-center items-center gap-2 animate-[fadeInUp_1s_ease-out_0.3s_both]">
+          {/* Rating Stars - Static */}
+          <div className="flex justify-center items-center gap-2 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             {[...Array(5)].map((_, i) => (
               <Star 
                 key={i} 
-                className="w-6 h-6 fill-yellow-400 text-yellow-400 animate-[starPulse_1.5s_ease-in-out_infinite]"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className="w-6 h-6 fill-yellow-400 text-yellow-400"
               />
             ))}
             <span className="ml-2 text-gray-600 font-semibold">5.0 / 5.0</span>
@@ -137,8 +101,8 @@ const TestimonialsSection: React.FC = () => {
               key={index}
               onMouseEnter={() => setActiveCard(index)}
               onMouseLeave={() => setActiveCard(null)}
-              className="group relative animate-[slideInUp_0.8s_ease-out_both]"
-              style={{ animationDelay: `${index * 0.15}s` }}
+              className="group relative animate-fade-in-up"
+              style={{ animationDelay: `${0.3 + index * 0.1}s` }}
             >
               {/* Card Container */}
               <div className="relative bg-white p-8 rounded-2xl shadow-xl border border-gray-200 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
@@ -147,13 +111,10 @@ const TestimonialsSection: React.FC = () => {
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
                 
                 {/* Shine Effect */}
-                <div 
-                  className={`absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* Quote Icon with Animation */}
+                {/* Quote Icon */}
                 <div className="relative mb-6">
-                  <div className="absolute -top-2 -left-2 w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl" />
                   <Quote 
                     size={40} 
                     className={`relative text-indigo-500 transform transition-all duration-500 ${activeCard === index ? 'scale-110 rotate-12' : 'rotate-0'}`}
@@ -180,17 +141,13 @@ const TestimonialsSection: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Divider with Animation */}
+                {/* Divider */}
                 <div className="my-6 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent transform scale-x-75 group-hover:scale-x-100 transition-transform duration-500" />
                 
                 {/* Author Info */}
                 <div className="flex items-center gap-4">
-                  {/* Avatar with Ring */}
+                  {/* Avatar */}
                   <div className="relative">
-                    {/* Animated Ring */}
-                    <div className={`absolute inset-0 rounded-full border-2 border-indigo-400 transition-all duration-500 ${activeCard === index ? 'scale-125 opacity-0' : 'scale-100 opacity-100'}`} />
-                    <div className={`absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400 to-purple-400 opacity-0 group-hover:opacity-20 blur-md transition-opacity duration-500`} />
-                    
                     <img 
                       src={testimonial.avatar} 
                       alt={testimonial.name} 
@@ -220,20 +177,13 @@ const TestimonialsSection: React.FC = () => {
                     <circle cx="100" cy="100" r="80" fill="currentColor" />
                   </svg>
                 </div>
-
-                {/* Floating Sparkles */}
-                <div className={`absolute top-8 right-8 w-2 h-2 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 ${activeCard === index ? 'animate-ping' : ''}`} />
-                <div className={`absolute bottom-16 left-8 w-1.5 h-1.5 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 [transition-delay:200ms] ${activeCard === index ? 'animate-ping' : ''}`} />
               </div>
-
-              {/* Card Shadow Glow */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform scale-95 group-hover:scale-105" />
             </div>
           ))}
         </div>
 
         {/* Bottom Trust Indicators */}
-        <div className="mt-16 flex flex-wrap justify-center items-center gap-8 animate-[fadeIn_1s_ease-out_1s_both]">
+        <div className="mt-16 flex flex-wrap justify-center items-center gap-8 animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <div className="flex items-center gap-2 text-gray-600">
             <CheckCircle className="w-5 h-5 text-green-500" />
             <span className="font-semibold">500+ Projects</span>

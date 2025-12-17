@@ -1,4 +1,4 @@
-// src/app/(public)/consultation/page.tsx\
+// src/app/(public)/contact/page.tsx\
 import React from 'react';
 import ContactSection from '@/components/sections/ContactSection';
 import PublicHeader from '@/components/layout/PublicHeader';
@@ -9,11 +9,11 @@ export const metadata = {
   description: 'Kenali para profesional di balik solusi jaringan dan sistem terintegrasi TeknoMedia.',
 };
 
-const ConsultationPage: React.FC = () => {
+const ContactPage: React.FC = () => {
   return (
     <div className="flex flex-col">
       <PublicHeader />
-      <main className="flex-grow py-8 bg-purple-500"> 
+      <main className="flex-grow py-16 bg-white"> 
         <ContactSection />
       </main>
       <PublicFooter />
@@ -21,4 +21,4 @@ const ConsultationPage: React.FC = () => {
   );
 };
 
-export default ConsultationPage;
+export default ContactPage;

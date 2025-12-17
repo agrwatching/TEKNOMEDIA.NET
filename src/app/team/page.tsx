@@ -10,10 +10,6 @@ export const metadata = {
   description: 'Kenali para profesional di balik solusi jaringan dan sistem terintegrasi TeknoMedia.',
 };
 
-/**
- * Komponen halaman utama untuk menampilkan Tim TeknoMedia.
- * Halaman ini hanya merender komponen TeamSection.
- */
 const TeamPage: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen bg-slate-900">

@@ -1,25 +1,21 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
+import { Menu, X, ChevronDown, Sparkles, Users, MessageCircle, Trophy, UsersRound, Image as ImageIcon, BookOpen, ShoppingCart, Flame, School, Phone } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 // Constants for dropdown items
 const ELEARNING_ITEMS = [
   {
     href: "#",
     label: "Teknomedia E-Learning",
-    description: "Platform pembelajaran digital",
-    icon: "📚",
+    icon: BookOpen,
     external: true,
   },
   {
     href: "https://lms.xplore.id/",
     label: "LMS Store",
-    description: "Marketplace e-learning",
-    icon: "🛒",
+    icon: ShoppingCart,
     external: true,
   },
 ];
@@ -28,19 +24,19 @@ const BLOG_ITEMS = [
   {
     href: "/article",
     label: "Hot Articles",
-    icon: "🔥",
+    icon: Flame,
     external: false,
   },
   {
     href: "https://www.smksteknologi.sch.id/",
     label: "SMK TEKNOLOGI",
-    icon: "🏫",
+    icon: School,
     external: true,
   },
   {
     href: "https://smkalhurriyyah.sch.id/",
     label: "SMK AL HURIYYAH",
-    icon: "🏫",
+    icon: School,
     external: true,
   },
 ];
@@ -49,27 +45,27 @@ const MENU_ITEMS = [
   {
     href: "/mitra",
     label: "Mitra",
-    icon: "🤝",
+    icon: Users,
   },
   {
     href: "/consultation",
     label: "Consultation",
-    icon: "💼",
+    icon: MessageCircle,
   },
   {
     href: "/featured",
     label: "Pencapaian",
-    icon: "🏆",
+    icon: Trophy,
   },
   {
     href: "/team",
     label: "Team",
-    icon: "👥",
+    icon: UsersRound,
   },
   {
     href: "/galeri",
     label: "Galeri",
-    icon: "🖼️",
+    icon: ImageIcon,
   },
 ];
 
@@ -80,12 +76,11 @@ const NavLinkItem: React.FC<{
   onClick?: () => void;
 }> = ({ href, children, isTransparent, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = false; // You can add pathname check here
   const textColor = isTransparent ? "text-white" : "text-gray-900";
 
   return (
-    <Link
+    <a
       href={href}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
@@ -96,13 +91,12 @@ const NavLinkItem: React.FC<{
     >
       {children}
 
-      {/* Animated Underline */}
       <span
         className={`absolute bottom-0 left-0 h-[2px] transition-all duration-300 bg-gradient-to-r from-blue-500 via-cyan-400 to-green-400 ${
           isActive ? "w-full" : isHovered ? "w-full" : "w-0"
         }`}
       />
-    </Link>
+    </a>
   );
 };
 
@@ -121,9 +115,8 @@ const Header = () => {
   const menuDropdownRef = useRef<HTMLDivElement>(null);
   const blogDropdownRef = useRef<HTMLDivElement>(null);
   const elearningDropdownRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
 
-  const isHomePage = pathname === "/";
+  const isHomePage = true; // You can add pathname check
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -180,8 +173,8 @@ const Header = () => {
 
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo with Animation */}
-          <Link href="/" className="flex items-center space-x-3 group">
+          {/* Logo */}
+          <a href="/" className="flex items-center space-x-3 group">
             <div className="relative">
               <Image
                 src="/teknomedia.png"
@@ -191,8 +184,6 @@ const Header = () => {
                 className="rounded-full transform group-hover:scale-110 transition-transform duration-300 relative z-10 border-2 border-white/20"
                 priority
               />
-
-              {/* Sparkle Effect */}
               <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
 
@@ -205,7 +196,7 @@ const Header = () => {
             >
               TEKNOMEDIA
             </h1>
-          </Link>
+          </a>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
@@ -213,7 +204,7 @@ const Header = () => {
               Home
             </NavLinkItem>
 
-            {/* Desktop Menu Dropdown */}
+            {/* Desktop Menu Dropdown - MINIMALIST */}
             <div className="relative" ref={menuDropdownRef}>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -228,7 +219,6 @@ const Header = () => {
                     isMenuOpen ? "rotate-180" : "rotate-0"
                   }`}
                 />
-                {/* Underline */}
                 <span
                   className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-300 ${
                     isMenuOpen ? "w-full" : "w-0 hover:w-full"
@@ -236,41 +226,28 @@ const Header = () => {
                 />
               </button>
 
-              {/* Dropdown Menu */}
+              {/* Minimalist Dropdown */}
               {isMenuOpen && (
-                <div className="absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-xl border border-gray-200 z-50 overflow-hidden p-2">
-                  {MENU_ITEMS.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="group/item flex items-center gap-4 px-5 py-4 mb-2 rounded-xl hover:bg-blue-50 transition-all duration-300"
-                    >
-                      {/* Icon */}
-                      <div className="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-xl group-hover/item:bg-blue-500 transition-colors duration-300">
-                        <span className="text-2xl group-hover/item:scale-110 transition-transform duration-300">
-                          {item.icon}
-                        </span>
-                      </div>
-
-                      <div className="flex-1">
-                        <div className="font-bold text-gray-900 group-hover/item:text-blue-600 transition-colors text-base">
-                          {item.label}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          Lihat {item.label.toLowerCase()}
-                        </div>
-                      </div>
-
-                      {/* Arrow indicator */}
-                      <ChevronDown className="w-5 h-5 text-gray-400 group-hover/item:text-blue-600 rotate-[-90deg] transition-colors duration-300" />
-                    </Link>
-                  ))}
+                <div className="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
+                  {MENU_ITEMS.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
+                      >
+                        <Icon size={16} className="flex-shrink-0" />
+                        <span className="text-xs">{item.label}</span>
+                      </a>
+                    );
+                  })}
                 </div>
               )}
             </div>
 
-            {/* Desktop E-Learning Dropdown */}
+            {/* Desktop E-Learning Dropdown - MINIMALIST */}
             <div className="relative" ref={elearningDropdownRef}>
               <button
                 onClick={() => setIsElearningOpen(!isElearningOpen)}
@@ -292,11 +269,11 @@ const Header = () => {
                 />
               </button>
 
-              {/* Dropdown Menu */}
               {isElearningOpen && (
-                <div className="absolute right-0 mt-3 w-80 bg-white rounded-2xl shadow-xl border border-gray-200 z-50 overflow-hidden p-2">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
                   {ELEARNING_ITEMS.map((item) => {
-                    const Component = item.external ? "a" : Link;
+                    const Component = item.external ? "a" : "a";
+                    const Icon = item.icon;
                     const externalProps = item.external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {};
@@ -306,28 +283,11 @@ const Header = () => {
                         key={item.href}
                         href={item.href}
                         onClick={() => setIsElearningOpen(false)}
-                        className="group/item flex items-center gap-4 px-5 py-4 mb-2 rounded-xl hover:bg-green-50 transition-all duration-300"
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
                         {...externalProps}
                       >
-                        {/* Icon */}
-                        <div className="w-14 h-14 flex items-center justify-center bg-green-100 rounded-xl group-hover/item:bg-green-500 transition-colors duration-300 shadow-md">
-                          <span className="text-3xl group-hover/item:scale-110 transition-transform duration-300">
-                            {item.icon}
-                          </span>
-                        </div>
-
-                        <div className="flex-1">
-                          <div className="font-bold text-gray-900 group-hover/item:text-green-600 transition-colors text-base">
-                            {item.label}
-                          </div>
-                          {item.description && (
-                            <div className="text-xs text-gray-500 mt-1">
-                              {item.description}
-                            </div>
-                          )}
-                        </div>
-
-                        <ChevronDown className="w-5 h-5 text-gray-400 group-hover/item:text-green-600 rotate-[-90deg] transition-colors duration-300" />
+                        <Icon size={16} className="flex-shrink-0" />
+                        <span className="text-xs">{item.label}</span>
                       </Component>
                     );
                   })}
@@ -335,7 +295,7 @@ const Header = () => {
               )}
             </div>
 
-            {/* Desktop Blog Dropdown */}
+            {/* Desktop Blog Dropdown - MINIMALIST */}
             <div className="relative" ref={blogDropdownRef}>
               <button
                 onClick={() => setIsBlogOpen(!isBlogOpen)}
@@ -358,9 +318,10 @@ const Header = () => {
               </button>
 
               {isBlogOpen && (
-                <div className="absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-xl border border-gray-200 z-50 overflow-hidden p-2">
+                <div className="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
                   {BLOG_ITEMS.map((item) => {
-                    const Component = item.external ? "a" : Link;
+                    const Component = item.external ? "a" : "a";
+                    const Icon = item.icon;
                     const externalProps = item.external
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {};
@@ -370,26 +331,11 @@ const Header = () => {
                         key={item.href}
                         href={item.href}
                         onClick={() => setIsBlogOpen(false)}
-                        className="group/item flex items-center gap-4 px-5 py-4 mb-2 rounded-xl hover:bg-purple-50 transition-all duration-300"
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
                         {...externalProps}
                       >
-                        {/* Icon */}
-                        <div className="w-12 h-12 flex items-center justify-center bg-purple-100 rounded-xl group-hover/item:bg-purple-500 transition-colors duration-300 shadow-md">
-                          <span className="text-2xl group-hover/item:scale-110 transition-transform duration-300">
-                            {item.icon}
-                          </span>
-                        </div>
-
-                        <div className="flex-1">
-                          <div className="font-bold text-gray-900 group-hover/item:text-purple-600 transition-colors text-base">
-                            {item.label}
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            {item.external ? "Blog eksternal" : "Artikel terbaru"}
-                          </div>
-                        </div>
-
-                        <ChevronDown className="w-5 h-5 text-gray-400 group-hover/item:text-purple-600 rotate-[-90deg] transition-colors duration-300" />
+                        <Icon size={16} className="flex-shrink-0" />
+                        <span className="text-xs">{item.label}</span>
                       </Component>
                     );
                   })}
@@ -411,181 +357,131 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - MINIMALIST */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pb-6 bg-white rounded-b-2xl shadow-xl p-6 border-t border-gray-200">
-            <div className="flex flex-col space-y-4">
-              {/* Home Link */}
-              <Link
+          <div className="md:hidden pb-6 bg-white rounded-b-xl shadow-lg border-t border-gray-100">
+            <div className="py-2">
+              {/* Home */}
+              <a
                 href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="group flex items-center gap-3 text-gray-900 hover:text-blue-600 transition-colors duration-300 py-4 px-5 rounded-xl bg-gray-50 hover:bg-blue-50"
+                className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors font-medium"
               >
-                <div className="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-xl group-hover:bg-blue-500 transition-colors duration-300">
-                  <span className="text-xl">🏠</span>
-                </div>
-                <span className="font-bold text-base">Home</span>
-              </Link>
+                Home
+              </a>
 
-              {/* Mobile Menu Dropdown */}
-              <div className="space-y-2">
+              {/* Menu Dropdown */}
+              <div>
                 <button
                   onClick={() => setIsMobileMenuOpen_dropdown(!isMobileMenuOpen_dropdown)}
-                  className="w-full group flex items-center justify-between gap-3 text-gray-900 hover:text-blue-600 transition-colors duration-300 py-4 px-5 rounded-xl bg-gray-50 hover:bg-blue-50"
+                  className="w-full flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors font-medium"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-xl group-hover:bg-blue-500 transition-colors duration-300">
-                      <span className="text-xl">📋</span>
-                    </div>
-                    <span className="font-bold text-base">Menu</span>
-                  </div>
+                  Menu
                   <ChevronDown
-                    className={`w-5 h-5 transition-transform duration-300 ${
-                      isMobileMenuOpen_dropdown ? "rotate-180" : "rotate-0"
+                    className={`w-4 h-4 transition-transform ${
+                      isMobileMenuOpen_dropdown ? "rotate-180" : ""
                     }`}
                   />
                 </button>
 
                 {isMobileMenuOpen_dropdown && (
-                  <div className="space-y-2 pl-4">
+                  <div className="bg-gray-50">
                     {MENU_ITEMS.map((item) => (
-                      <Link
+                      <a
                         key={item.href}
                         href={item.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="group flex items-center gap-3 py-3 px-4 rounded-xl bg-white hover:bg-blue-50 border border-gray-200 transition-all duration-300"
+                        className="block px-8 py-2.5 text-sm text-gray-600 hover:text-blue-600 hover:bg-white transition-colors"
                       >
-                        <div className="w-9 h-9 flex items-center justify-center bg-blue-100 rounded-lg group-hover:bg-blue-500 transition-colors duration-300">
-                          <span className="text-lg">{item.icon}</span>
-                        </div>
-                        <span className="font-semibold text-sm text-gray-900 group-hover:text-blue-600 transition-colors">
-                          {item.label}
-                        </span>
-                      </Link>
+                        {item.label}
+                      </a>
                     ))}
                   </div>
                 )}
               </div>
 
-              {/* Mobile E-Learning Dropdown */}
-              <div className="space-y-2">
+              {/* E-Learning Dropdown */}
+              <div>
                 <button
                   onClick={() => setIsMobileElearningOpen(!isMobileElearningOpen)}
-                  className="w-full group flex items-center justify-between gap-3 text-gray-900 hover:text-green-600 transition-colors duration-300 py-4 px-5 rounded-xl bg-gray-50 hover:bg-green-50"
+                  className="w-full flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors font-medium"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 flex items-center justify-center bg-green-100 rounded-xl group-hover:bg-green-500 transition-colors duration-300">
-                      <span className="text-xl">📚</span>
-                    </div>
-                    <span className="font-bold text-base">E-Learning</span>
-                  </div>
+                  E-Learning
                   <ChevronDown
-                    className={`w-5 h-5 transition-transform duration-300 ${
-                      isMobileElearningOpen ? "rotate-180" : "rotate-0"
+                    className={`w-4 h-4 transition-transform ${
+                      isMobileElearningOpen ? "rotate-180" : ""
                     }`}
                   />
                 </button>
 
                 {isMobileElearningOpen && (
-                  <div className="space-y-2 pl-4">
+                  <div className="bg-gray-50">
                     {ELEARNING_ITEMS.map((item) => {
-                      const Component = item.external ? "a" : Link;
                       const externalProps = item.external
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {};
 
                       return (
-                        <Component
+                        <a
                           key={item.href}
                           href={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="group flex items-center gap-3 py-3 px-4 rounded-xl bg-white hover:bg-green-50 border border-gray-200 transition-all duration-300"
+                          className="block px-8 py-2.5 text-sm text-gray-600 hover:text-blue-600 hover:bg-white transition-colors"
                           {...externalProps}
                         >
-                          <div className="w-11 h-11 flex items-center justify-center bg-green-100 rounded-lg group-hover:bg-green-500 transition-colors duration-300">
-                            <span className="text-xl">{item.icon}</span>
-                          </div>
-                          <div className="flex-1">
-                            <div className="font-semibold text-sm text-gray-900 group-hover:text-green-600 transition-colors">
-                              {item.label}
-                            </div>
-                            {item.description && (
-                              <div className="text-xs text-gray-500">
-                                {item.description}
-                              </div>
-                            )}
-                          </div>
-                        </Component>
+                          {item.label}
+                        </a>
                       );
                     })}
                   </div>
                 )}
               </div>
 
-              {/* Mobile Blog Dropdown */}
-              <div className="space-y-2">
+              {/* Blog Dropdown */}
+              <div>
                 <button
                   onClick={() => setIsMobileBlogOpen(!isMobileBlogOpen)}
-                  className="w-full group flex items-center justify-between gap-3 text-gray-900 hover:text-purple-600 transition-colors duration-300 py-4 px-5 rounded-xl bg-gray-50 hover:bg-purple-50"
+                  className="w-full flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors font-medium"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 flex items-center justify-center bg-purple-100 rounded-xl group-hover:bg-purple-500 transition-colors duration-300">
-                      <span className="text-xl">📝</span>
-                    </div>
-                    <span className="font-bold text-base">Blog</span>
-                  </div>
+                  Blog
                   <ChevronDown
-                    className={`w-5 h-5 transition-transform duration-300 ${
-                      isMobileBlogOpen ? "rotate-180" : "rotate-0"
+                    className={`w-4 h-4 transition-transform ${
+                      isMobileBlogOpen ? "rotate-180" : ""
                     }`}
                   />
                 </button>
 
                 {isMobileBlogOpen && (
-                  <div className="space-y-2 pl-4">
+                  <div className="bg-gray-50">
                     {BLOG_ITEMS.map((item) => {
-                      const Component = item.external ? "a" : Link;
                       const externalProps = item.external
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {};
 
                       return (
-                        <Component
+                        <a
                           key={item.href}
                           href={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="group flex items-center gap-3 py-3 px-4 rounded-xl bg-white hover:bg-purple-50 border border-gray-200 transition-all duration-300"
+                          className="block px-8 py-2.5 text-sm text-gray-600 hover:text-blue-600 hover:bg-white transition-colors"
                           {...externalProps}
                         >
-                          <div className="w-9 h-9 flex items-center justify-center bg-purple-100 rounded-lg group-hover:bg-purple-500 transition-colors duration-300">
-                            <span className="text-lg">{item.icon}</span>
-                          </div>
-                          <div className="flex-1">
-                            <div className="font-semibold text-sm text-gray-900 group-hover:text-purple-600 transition-colors">
-                              {item.label}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              {item.external ? "Blog eksternal" : "Artikel terbaru"}
-                            </div>
-                          </div>
-                        </Component>
+                          {item.label}
+                        </a>
                       );
                     })}
                   </div>
                 )}
               </div>
 
-              {/* Contact Link */}
-              <Link
+              {/* Contact */}
+              <a
                 href="/contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="group flex items-center gap-3 text-gray-900 hover:text-green-600 transition-colors duration-300 py-4 px-5 rounded-xl bg-gray-50 hover:bg-green-50"
+                className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors font-medium"
               >
-                <div className="w-10 h-10 flex items-center justify-center bg-green-100 rounded-xl group-hover:bg-green-500 transition-colors duration-300">
-                  <span className="text-xl">📞</span>
-                </div>
-                <span className="font-bold text-base">Contact</span>
-              </Link>
+                Contact
+              </a>
             </div>
           </div>
         )}
