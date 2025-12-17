@@ -194,7 +194,7 @@ const Header = () => {
                   : "bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-transparent"
               } transform group-hover:scale-105 transition-transform duration-300`}
             >
-              TEKNOMEDIA
+              EDULAB VTnet
             </h1>
           </a>
 
