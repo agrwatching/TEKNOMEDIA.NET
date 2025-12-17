@@ -15,18 +15,6 @@ const slides = [
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [textVisible, setTextVisible] = useState(false);
-  const [stars, setStars] = useState<Array<{left: number, top: number, delay: number}>>([]);
-
-  // ✨ Generate stars hanya di client
-  useEffect(() => {
-    setStars(
-      Array.from({ length: 20 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        delay: Math.random() * 3
-      }))
-    );
-  }, []);
 
   // 🔄 Auto-Slide
   useEffect(() => {
@@ -73,21 +61,6 @@ const HeroSection = () => {
         </div>
       ))}
 
-      {/* Animated Particles - FIXED ✅ */}
-      <div className="absolute inset-0 pointer-events-none">
-        {stars.map((star, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white/30 rounded-full animate-twinkle"
-            style={{
-              left: `${star.left}%`,
-              top: `${star.top}%`,
-              animationDelay: `${star.delay}s`,
-            }}
-          />
-        ))}
-      </div>
-
       {/* 📝 Konten Teks dengan Animasi */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center text-white z-10 px-4 max-w-5xl">
@@ -98,63 +71,41 @@ const HeroSection = () => {
               textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'
             }`}
           >
-            <Sparkles className="w-4 h-4 text-yellow-300 animate-pulse" />
+            <Sparkles className="w-4 h-4 text-yellow-300 animate-spin-slow" />
             <span className="text-sm font-semibold tracking-wider">SELAMAT DATANG</span>
-            <Sparkles className="w-4 h-4 text-yellow-300 animate-pulse" />
+            <Sparkles className="w-4 h-4 text-yellow-300 animate-spin-slow" />
           </div>
 
-          {/* Main Title dengan Multiple Effects */}
+          {/* Main Title */}
           <h1 className={`text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 transition-all duration-700 delay-100 ${
             textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
-            <span className="inline-block animate-fade-in-up">
+            <span className="inline-block">
               Selamat Datang di
             </span>
             <br />
             <span className="relative inline-block mt-2">
-              {/* Glowing Background */}
-              <span className="absolute inset-0 blur-2xl bg-gradient-to-r from-blue-500 via-cyan-400 to-green-400 opacity-50 animate-pulse" />
-              
               {/* Main Text with Gradient */}
-              <span className="relative bg-gradient-to-r from-blue-400 via-cyan-300 to-green-400 bg-clip-text text-transparent font-black animate-[shimmerText_3s_ease-in-out_infinite]">
+              <span className="relative bg-gradient-to-r from-blue-400 via-cyan-300 to-green-400 bg-clip-text text-transparent font-black">
                 Teknomedia
               </span>
-              
-              {/* Underline Animation */}
-              <svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 500 12" preserveAspectRatio="none">
-                <path 
-                  d="M0,6 Q125,0 250,6 T500,6" 
-                  fill="none" 
-                  stroke="url(#heroGradient)" 
-                  strokeWidth="3"
-                  className="animate-[drawLine_2s_ease-out_0.5s_forwards]"
-                  style={{ strokeDasharray: 500, strokeDashoffset: 500 }}
-                />
-                <defs>
-                  <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#3b82f6" />
-                    <stop offset="50%" stopColor="#06b6d4" />
-                    <stop offset="100%" stopColor="#10b981" />
-                  </linearGradient>
-                </defs>
-              </svg>
             </span>
           </h1>
 
-          {/* Subtitle dengan Typing Effect */}
+          {/* Subtitle */}
           <div className={`mb-10 transition-all duration-700 delay-300 ${
             textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
             <p className="text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed">
-              <span className="inline-block animate-fade-in">Solusi</span>{' '}
-              <span className="font-bold text-cyan-300 animate-fade-in" style={{ animationDelay: '0.1s' }}>Edukasi</span>
-              <span className="animate-fade-in" style={{ animationDelay: '0.2s' }}>,</span>{' '}
-              <span className="font-bold text-blue-300 animate-fade-in" style={{ animationDelay: '0.3s' }}>Teknologi</span>
-              <span className="animate-fade-in" style={{ animationDelay: '0.4s' }}>, dan</span>{' '}
-              <span className="font-bold text-green-300 animate-fade-in" style={{ animationDelay: '0.5s' }}>Internet Bisnis</span>
+              <span className="inline-block">Solusi</span>{' '}
+              <span className="font-bold text-cyan-300">Edukasi</span>
+              <span>,</span>{' '}
+              <span className="font-bold text-blue-300">Teknologi</span>
+              <span>, dan</span>{' '}
+              <span className="font-bold text-green-300">Internet Bisnis</span>
               <br />
-              <span className="animate-fade-in" style={{ animationDelay: '0.6s' }}>dalam</span>{' '}
-              <span className="relative inline-block animate-fade-in" style={{ animationDelay: '0.7s' }}>
+              <span>dalam</span>{' '}
+              <span className="relative inline-block">
                 <span className="relative z-10">Satu Platform Terpadu</span>
                 <span className="absolute bottom-1 left-0 w-full h-2 bg-gradient-to-r from-blue-500/30 to-green-500/30 -rotate-1" />
               </span>
@@ -172,9 +123,6 @@ const HeroSection = () => {
               {/* Button Shine Effect */}
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               
-              {/* Button Glow */}
-              <span className="absolute inset-0 blur-xl bg-gradient-to-r from-blue-400 to-green-400 opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
-              
               <span className="relative z-10 flex items-center gap-2">
                 <Sparkles className="w-5 h-5 animate-spin-slow" />
                 Mulai Menjelajah
@@ -182,20 +130,16 @@ const HeroSection = () => {
               </span>
             </button>
 
-            {/* Scroll Indicator */}
+            {/* Scroll Indicator - TETAP DIPERTAHANKAN */}
             <div className="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity animate-bounce">
               <span className="text-xs uppercase tracking-widest">Scroll Down</span>
               <ChevronDown className="w-6 h-6" />
             </div>
           </div>
-
-          {/* Decorative Lines */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-b from-transparent to-white/50 animate-[growDown_2s_ease-out]" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-t from-transparent to-white/50 animate-[growUp_2s_ease-out]" />
         </div>
       </div>
 
-      {/* Navigation Dots dengan Animasi */}
+      {/* Navigation Dots */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex space-x-3">
         {slides.map((_, index) => (
           <button

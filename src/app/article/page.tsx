@@ -11,9 +11,9 @@ export const metadata = {
 
 const BeritaPage: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
       <PublicHeader />
-      <main className="flex-grow py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900"> 
+      <main className="flex-grow py-16"> 
         <PortalBerita />
       </main>
       <PublicFooter />

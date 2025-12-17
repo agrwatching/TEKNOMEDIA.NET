@@ -157,12 +157,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
       <PublicHeader />
       
       <main className="flex-grow py-12 relative">
-        {/* Tech Background */}
-        <div className="absolute inset-0 opacity-5">
+        {/* Light Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.03]">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.5)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
         </div>
 
@@ -170,23 +170,23 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           {/* Back Button */}
           <Link 
             href="/article"
-            className="inline-flex items-center gap-2 text-blue-400 hover:text-cyan-400 mb-8 group transition-colors duration-300"
+            className="inline-flex items-center gap-2 text-blue-600 hover:text-cyan-600 mb-8 group transition-colors duration-300"
           >
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" />
             <span className="font-semibold">Kembali ke Artikel</span>
           </Link>
 
           {/* Article Card */}
-          <article className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border border-blue-500/20 shadow-2xl shadow-blue-500/10">
+          <article className="bg-white rounded-2xl overflow-hidden border border-blue-100 shadow-xl shadow-blue-100/50">
             {/* Header */}
-            <div className="p-8 md:p-12 border-b border-blue-500/20">
+            <div className="p-8 md:p-12 border-b border-blue-100 bg-gradient-to-br from-blue-50/50 to-cyan-50/50">
               {/* Labels */}
               {post.labels && post.labels.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-6">
                   {post.labels.map((label, idx) => (
                     <span
                       key={idx}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold rounded-full shadow-lg border border-blue-400/50"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold rounded-full shadow-md"
                     >
                       <Tag className="w-3 h-3" />
                       {label}
@@ -196,29 +196,29 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               )}
 
               {/* Title */}
-              <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+              <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
                 {post.title}
               </h1>
 
               {/* Meta Info */}
-              <div className="flex flex-wrap items-center gap-6 text-blue-300/80">
+              <div className="flex flex-wrap items-center gap-6 text-gray-600">
                 <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center border border-blue-400/30">
-                    <User className="w-5 h-5 text-blue-400" />
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center border border-blue-200">
+                    <User className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-300/60">Ditulis oleh</p>
-                    <p className="font-semibold text-white">{post.author.displayName}</p>
+                    <p className="text-xs text-gray-500">Ditulis oleh</p>
+                    <p className="font-semibold text-gray-900">{post.author.displayName}</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-cyan-500/20 rounded-full flex items-center justify-center border border-cyan-400/30">
-                    <Calendar className="w-5 h-5 text-cyan-400" />
+                  <div className="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center border border-cyan-200">
+                    <Calendar className="w-5 h-5 text-cyan-600" />
                   </div>
                   <div>
-                    <p className="text-xs text-blue-300/60">Dipublikasikan</p>
-                    <p className="font-semibold text-white">{formatDate(post.published)}</p>
+                    <p className="text-xs text-gray-500">Dipublikasikan</p>
+                    <p className="font-semibold text-gray-900">{formatDate(post.published)}</p>
                   </div>
                 </div>
               </div>
@@ -226,50 +226,50 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             {/* Content */}
             <div className="p-8 md:p-12">
-              {/* Tech Divider */}
+              {/* Divider */}
               <div className="flex items-center gap-2 mb-8">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
-                <div className="w-2 h-2 bg-blue-400 rounded-full animate-ping-slow"></div>
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-300 to-transparent"></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-300 to-transparent"></div>
               </div>
 
-              {/* Article Content - Newspaper Style */}
+              {/* Article Content - Newspaper Style with Light Theme */}
               <div 
-                className="article-content prose prose-invert prose-lg max-w-none
-                  [&_p]:text-justify [&_p]:hyphens-auto [&_p]:leading-relaxed [&_p]:mb-4
-                  [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-xl [&_img]:shadow-lg [&_img]:border [&_img]:border-blue-500/20
+                className="article-content prose prose-lg max-w-none
+                  [&_p]:text-justify [&_p]:hyphens-auto [&_p]:leading-relaxed [&_p]:mb-4 [&_p]:text-gray-700
+                  [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-xl [&_img]:shadow-lg [&_img]:border [&_img]:border-blue-200
                   [&_img:first-of-type]:float-left [&_img:first-of-type]:mr-6 [&_img:first-of-type]:mb-4 [&_img:first-of-type]:max-w-[45%]
                   [&_img:nth-of-type(2)]:float-right [&_img:nth-of-type(2)]:ml-6 [&_img:nth-of-type(2)]:mb-4 [&_img:nth-of-type(2)]:max-w-[45%]
                   [&_img:nth-of-type(3)]:float-left [&_img:nth-of-type(3)]:mr-6 [&_img:nth-of-type(3)]:mb-4 [&_img:nth-of-type(3)]:max-w-[45%]
                   md:[&_img]:float-none md:[&_img]:max-w-full md:[&_img]:mx-0 md:[&_img]:my-4
                   after:content-[''] after:table after:clear-both
-                  prose-headings:text-white prose-headings:font-bold prose-headings:clear-both prose-headings:pt-4
-                  prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-cyan-400
-                  prose-strong:text-white prose-strong:font-bold
-                  prose-ul:text-slate-300 prose-ul:clear-both prose-ol:text-slate-300
-                  prose-li:text-slate-300
-                  prose-blockquote:border-l-blue-500 prose-blockquote:text-blue-300 prose-blockquote:clear-both
-                  prose-code:text-cyan-400 prose-code:bg-slate-950 prose-code:px-2 prose-code:py-1 prose-code:rounded
-                  prose-pre:bg-slate-950 prose-pre:border prose-pre:border-blue-500/20 prose-pre:clear-both"
+                  prose-headings:text-gray-900 prose-headings:font-bold prose-headings:clear-both prose-headings:pt-4
+                  prose-a:text-blue-600 prose-a:no-underline hover:prose-a:text-cyan-600
+                  prose-strong:text-gray-900 prose-strong:font-bold
+                  prose-ul:text-gray-700 prose-ul:clear-both prose-ol:text-gray-700
+                  prose-li:text-gray-700
+                  prose-blockquote:border-l-blue-600 prose-blockquote:text-gray-700 prose-blockquote:bg-blue-50 prose-blockquote:clear-both
+                  prose-code:text-cyan-600 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded
+                  prose-pre:bg-gray-100 prose-pre:border prose-pre:border-blue-200 prose-pre:clear-both"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
 
               {/* Bottom Divider */}
               <div className="flex items-center gap-2 mt-12 mb-8">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
-                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping-slow"></div>
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-300 to-transparent"></div>
+                <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-blue-300 to-transparent"></div>
               </div>
 
               {/* Share Section */}
-              <div className="flex flex-wrap items-center justify-between gap-4 p-6 bg-slate-950/50 rounded-xl border border-blue-500/20">
+              <div className="flex flex-wrap items-center justify-between gap-4 p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border border-blue-200">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center border border-blue-400/30">
-                    <Share2 className="w-6 h-6 text-blue-400" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center border border-blue-300">
+                    <Share2 className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-white font-bold">Bagikan Artikel Ini</p>
-                    <p className="text-blue-300/60 text-sm">Sebarkan informasi bermanfaat</p>
+                    <p className="text-gray-900 font-bold">Bagikan Artikel Ini</p>
+                    <p className="text-gray-600 text-sm">Sebarkan informasi bermanfaat</p>
                   </div>
                 </div>
 
@@ -290,7 +290,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <div className="mt-12 text-center">
             <Link
               href="/article"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-full shadow-xl shadow-blue-500/30 hover:shadow-cyan-500/50 transition-all duration-500"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-bold rounded-full shadow-xl shadow-blue-500/30 hover:shadow-cyan-500/50 transition-all duration-300"
             >
               <ArrowLeft className="w-5 h-5" />
               Kembali ke Semua Artikel
