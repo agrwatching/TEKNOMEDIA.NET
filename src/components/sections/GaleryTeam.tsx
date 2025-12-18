@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useCallback, useMemo } from "react";
-import { Camera, Eye, ZoomIn, Heart, X, ChevronLeft, ChevronRight, Image } from "lucide-react";
+import { Camera, Eye, ZoomIn, Heart, X, ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
+import NextImage from "next/image";
 
 interface GalleryItem {
   id: number;
@@ -13,45 +14,59 @@ interface GalleryItem {
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800",
-    title: "Meeting & Diskusi Proyek",
+    image: "/g1.jpg",
+    title: "Instalasi Jaringan Kampus",
     description:
-      "Sesi brainstorming bersama tim untuk merancang solusi jaringan sekolah modern.",
+      "Implementasi infrastruktur jaringan kampus dengan teknologi terkini untuk mendukung ekosistem digital pendidikan tinggi.",
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800",
-    title: "Implementasi Fiber Optik",
+    image: "/g2.jpg",
+    title: "Meeting & Diskusi Proyek",
     description:
-      "Tim lapangan melakukan penarikan kabel dan konfigurasi perangkat FO.",
+      "Sesi brainstorming dan perencanaan strategis bersama tim untuk merancang solusi IT yang optimal bagi institusi pendidikan.",
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800",
+    image: "/g3.jpg",
     title: "Training E-Learning",
     description:
-      "Pelatihan penggunaan platform e-learning untuk guru dan staf sekolah.",
+      "Pelatihan komprehensif penggunaan platform e-learning untuk meningkatkan kompetensi digital guru dan staf sekolah.",
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800",
+    image: "/g4.jpg",
     title: "Setup Server Sekolah",
     description:
-      "Konfigurasi Windows Server untuk manajemen user dan data sekolah.",
+      "Konfigurasi dan deployment Windows Server untuk manajemen user, database, dan sistem informasi akademik sekolah.",
   },
   {
     id: 5,
-    image: "/maintenancep.jpg",
+    image: "/g5.jpg",
     title: "Maintenance Perangkat",
     description:
-      "Pemeliharaan rutin access point dan switch jaringan.",
+      "Pemeliharaan rutin dan preventif terhadap perangkat jaringan, access point, switch, dan infrastruktur IT sekolah.",
   },
   {
     id: 6,
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
-    title: "Kolaborasi Tim",
+    image: "/g6.jpg",
+    title: "Implementasi Fiber Optik",
     description:
-      "Dokumentasi kolaborasi internal untuk meningkatkan layanan digital.",
+      "Pemasangan dan konfigurasi jaringan fiber optik untuk koneksi internet berkecepatan tinggi dan stabil di lingkungan kampus.",
+  },
+  {
+    id: 7,
+    image: "/g7.jpg",
+    title: "Pengembangan Platform E-Learning",
+    description:
+      "Develop dan customize platform pembelajaran digital yang user-friendly untuk mendukung proses belajar mengajar online.",
+  },
+  {
+    id: 8,
+    image: "/g8.jpg",
+    title: "Integrasi Server & Infrastruktur IT",
+    description:
+      "Integrasi sistem server, database, dan infrastruktur IT untuk menciptakan ekosistem digital yang terintegrasi dan efisien.",
   },
 ];
 
@@ -143,7 +158,7 @@ const GaleryTeam: React.FC<GaleryTeamProps> = ({
             <div className="flex justify-center items-center gap-4 mb-4 animate-fade-in-down">
               <Camera className="w-8 h-8 text-indigo-500" />
               <Eye className="w-8 h-8 text-purple-500" />
-              <Image className="w-8 h-8 text-pink-500" />
+              <ImageIcon className="w-8 h-8 text-pink-500" />
             </div>
 
             <h2 className="text-sm font-bold text-indigo-600 uppercase tracking-[0.2em] animate-fade-in">
@@ -183,12 +198,14 @@ const GaleryTeam: React.FC<GaleryTeamProps> = ({
                   
                   {/* Image Container */}
                   <div className="relative h-64 w-full bg-gray-200 overflow-hidden">
-                    <img
+                    <NextImage
                       src={item.image}
                       alt={item.title}
-                      loading={index > 2 ? "lazy" : "eager"}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
                       style={{ willChange: 'transform' }}
+                      priority={index < 3}
                     />
 
                     {/* Overlay */}
@@ -233,7 +250,7 @@ const GaleryTeam: React.FC<GaleryTeamProps> = ({
                       onClick={() => openModal(index)}
                       className="w-full inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-md hover:shadow-xl transition-all duration-300"
                     >
-                      <Image size={18} className="mr-2" />
+                      <ImageIcon size={18} className="mr-2" />
                       Lihat Foto
                     </button>
                   </div>
@@ -309,11 +326,14 @@ const GaleryTeam: React.FC<GaleryTeamProps> = ({
             className="flex items-center justify-center h-full p-4 md:p-8"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative max-w-6xl w-full animate-zoom-in">
-              <img
+            <div className="relative max-w-6xl w-full h-[80vh] animate-zoom-in">
+              <NextImage
                 src={displayedGallery[currentImageIndex].image}
                 alt={displayedGallery[currentImageIndex].title}
-                className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
+                fill
+                sizes="90vw"
+                className="object-contain rounded-lg"
+                priority
               />
 
               {/* Image Info */}
