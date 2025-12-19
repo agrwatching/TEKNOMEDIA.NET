@@ -87,7 +87,7 @@ const HeroSection = () => {
             <span className="relative inline-block mt-2">
               {/* Main Text with Gradient */}
               <span className="relative bg-gradient-to-r from-blue-400 via-cyan-300 to-green-400 bg-clip-text text-transparent font-black">
-                EDULAB VTnet
+                TEKNOMEDIA
               </span>
             </span>
           </h1>
