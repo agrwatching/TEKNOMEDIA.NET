@@ -107,7 +107,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
 
               {/* DESKRIPSI */}
               <p className="text-lg text-gray-600 text-justify leading-relaxed hover:text-gray-900 transition-colors duration-300">
-                Edulab adalah perusahaan penyedia layanan edukasi berbasis industri dan solusi teknologi yang berfokus pada peningkatan kompetensi digital generasi muda serta mendukung kebutuhan teknologi untuk institusi dan bisnis.
+                Teknomedia adalah perusahaan penyedia layanan edukasi berbasis industri dan solusi teknologi yang berfokus pada peningkatan kompetensi digital generasi muda serta mendukung kebutuhan teknologi untuk institusi dan bisnis.
               </p>
 
               {/* VISI */}
