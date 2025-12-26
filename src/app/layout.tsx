@@ -17,7 +17,13 @@ export const metadata: Metadata = {
   title: "TEKNOMEDIA",
   description: "Aplikasi berbasis web Teknomedia",
   icons: {
-    icon: '/teknomedia.png',
+    icon: [
+      { url: '/teknomedia.png' }, // Standar
+      { url: '/teknomedia.png', sizes: '192x192', type: 'image/png' }, // High res
+    ],
+    apple: [
+      { url: '/teknomedia.png' }, // Untuk perangkat Apple
+    ],
   },
 };
 
