@@ -11,7 +11,20 @@ import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import GaleryTeam from "@/components/sections/GaleryTeam";
 import PortalBeritaSection from "@/components/sections/PortalBeritaSection";
 import PricingSection from "@/components/sections/PricingSection";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "TEKNOMEDIA | Solusi Edukasi & Teknologi Digital Indonesia",
+  description: "Platform terbaik untuk layanan edukasi berbasis industri, solusi IT, dan portal berita teknologi terkini di Teknomedia.",
+  keywords: [
+    "Teknomedia", 
+    "Edukasi Teknologi", 
+    "Jasa Pembuatan Website", 
+    "Kursus IT Indonesia", 
+    "Berita Teknologi", 
+    "Solusi Digital"
+  ],
+};
 // Halaman utama (/)
 export default function HomePage() {
   return (
