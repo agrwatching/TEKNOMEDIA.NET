@@ -14,8 +14,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TEKNOMEDIA",
-  description: "Aplikasi berbasis web Teknomedia",
+title: {
+    default: "TEKNOMEDIA - Solusi Edukasi Teknologi",
+    template: "%s | TEKNOMEDIA" // Jadi kalau di page lain title-nya "Blog", bakal muncul "Blog | TEKNOMEDIA"
+  },
+  description: "Teknomedia adalah penyedia layanan edukasi berbasis industri dan solusi teknologi digital untuk generasi muda.",
+  // Meskipun Google jarang liat ini, kamu tetap bisa masukin buat search engine lain
+  keywords: ["edukasi teknologi", "belajar koding", "teknomedia info", "pelatihan IT"], 
+  authors: [{ name: "Teknomedia Team" }],
+  openGraph: {
+    title: "TEKNOMEDIA",
+    description: "Solusi teknologi dan edukasi digital terpercaya.",
+    url: "https://www.teknomedia.info",
+    siteName: "Teknomedia",
+    images: [
+      {
+        url: "/og-image.png", // Gambar yang muncul saat link dishare ke WA/FB
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "id_ID",
+    type: "website",
+  },
   icons: {
     icon: [
       { url: '/teknomedia.png' }, // Standar
