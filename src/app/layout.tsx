@@ -29,7 +29,7 @@ title: {
     siteName: "Teknomedia",
     images: [
       {
-        url: "/og-image.png", // Gambar yang muncul saat link dishare ke WA/FB
+        url: "/og-image.png",
         width: 1200,
         height: 630,
       },

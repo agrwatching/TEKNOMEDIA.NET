@@ -177,7 +177,7 @@ const Header = () => {
           <a href="/" className="flex items-center space-x-3 group">
             <div className="relative">
               <Image
-                src="/teknomedia.png"
+                src="/teknomedia.jpeg"
                 alt="Teknomedia Logo"
                 width={48}
                 height={48}
@@ -194,7 +194,7 @@ const Header = () => {
                   : "bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-transparent"
               } transform group-hover:scale-105 transition-transform duration-300`}
             >
-              TEKNOMEDIA
+              PT TEKNOMEDIA EDUKASI NUSANTARA
             </h1>
           </a>
 
