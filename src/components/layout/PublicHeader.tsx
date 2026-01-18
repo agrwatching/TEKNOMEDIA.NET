@@ -187,17 +187,27 @@ const Header = () => {
               <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
 
-            <h1
-              className={`text-2xl font-black ${
-                isTransparent
-                  ? "text-white"
-                  : "bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-transparent"
-              } transform group-hover:scale-105 transition-transform duration-300`}
-            >
-              PT TEKNOMEDIA EDUKASI NUSANTARA
-            </h1>
+            <div className="flex flex-col leading-tight">
+              <h1
+                className={`text-lg font-black ${
+                  isTransparent
+                    ? "text-white"
+                    : "bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-transparent"
+                } transform group-hover:scale-105 transition-transform duration-300`}
+              >
+                PT TEKNOMEDIA
+              </h1>
+              <span
+                className={`text-sm font-semibold ${
+                  isTransparent
+                    ? "text-white/90"
+                    : "bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-transparent"
+                } transform group-hover:scale-105 transition-transform duration-300`}
+              >
+                EDUKASI NUSANTARA
+              </span>
+            </div>
           </a>
-
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <NavLinkItem href="/" isTransparent={isTransparent}>
