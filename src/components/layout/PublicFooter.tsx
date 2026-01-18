@@ -37,7 +37,7 @@ const PublicFooter: React.FC = () => {
             >
               <div className="relative">
                 <Image
-                  src="/teknomedia.png"
+                  src="/teknomedia.jpeg"
                   alt="Teknomedia Logo"
                   width={48}
                   height={48}
