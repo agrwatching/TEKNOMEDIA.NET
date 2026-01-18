@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, Sparkles, Users, MessageCircle, Trophy, UsersRound, Image as ImageIcon, BookOpen, ShoppingCart, Flame, School, Phone } from "lucide-react";
 import Image from "next/image";
 
@@ -116,7 +117,8 @@ const Header = () => {
   const blogDropdownRef = useRef<HTMLDivElement>(null);
   const elearningDropdownRef = useRef<HTMLDivElement>(null);
 
-  const isHomePage = true; // You can add pathname check
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
