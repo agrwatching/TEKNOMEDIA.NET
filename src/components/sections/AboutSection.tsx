@@ -16,11 +16,11 @@ const teamPhotos = [
 export const partners = [
   {
     "id": 1,
-    "logo": "/teknomedia.png",
-    "name": "PT Teknomedia Edukasi Nusantara",
-    "category": "Software House & Cloud Service",
-    "description": "Penyedia layanan pengembangan software kustom, aplikasi, serta infrastruktur VPS yang andal untuk berbagai kebutuhan digital.",
-    "website": "https://teknomedia.info/"
+    "logo": "/Edulab.png",
+    "name": "VTNet Edulab",
+    "category": "Education & Consultancy",
+    "description": "Menyediakan tenaga ahli (expertise) dan guru tamu profesional serta menjalin kolaborasi strategis antara institusi pendidikan dan industri.",
+    "website": "https://edulab.vtnet.id/"
   },
   {
     "id": 2,
@@ -40,11 +40,11 @@ export const partners = [
   },
     {
     "id": 4,
-    "logo": "/Edulab.png",
-    "name": "VTNet Edulab",
-    "category": "Education & Consultancy",
-    "description": "Menyediakan tenaga ahli (expertise) dan guru tamu profesional serta menjalin kolaborasi strategis antara institusi pendidikan dan industri.",
-    "website": "https://edulab.vtnet.id/"
+    "logo": "/teknomedia.png",
+    "name": "PT Teknomedia Edukasi Nusantara",
+    "category": "Software House & Cloud Service",
+    "description": "Penyedia layanan pengembangan software kustom, aplikasi, serta infrastruktur VPS yang andal untuk berbagai kebutuhan digital.",
+    "website": "https://teknomedia.info/"
   },
 ];
 
