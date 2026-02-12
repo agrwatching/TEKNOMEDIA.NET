@@ -28,7 +28,7 @@ export const partners = [
     "name": "PT Vaiotech Lintas Nusantara",
     "category": "Internet Service Provider",
     "description": "Mitra resmi penyedia layanan internet (ISP) dan infrastruktur jaringan terpercaya untuk skala bisnis maupun personal.",
-    "website": "https://vaiotech.id/"
+    "website": "https://vtnet.id/"
   },
   {
     "id": 3,
