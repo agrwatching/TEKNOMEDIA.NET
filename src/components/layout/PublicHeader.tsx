@@ -9,7 +9,7 @@ import Image from "next/image";
 const ELEARNING_ITEMS = [
   {
     href: "#",
-    label: "Teknomedia E-Learning",
+    label: "E-Learning",
     icon: BookOpen,
     external: true,
   },
@@ -240,7 +240,7 @@ const Header = () => {
 
               {/* Minimalist Dropdown */}
               {isMenuOpen && (
-                <div className="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
+                <div className="absolute right-0 mt-2 w-auto whitespace-nowrap min-w-max bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
                   {MENU_ITEMS.map((item) => {
                     const Icon = item.icon;
                     return (
@@ -282,7 +282,7 @@ const Header = () => {
               </button>
 
               {isElearningOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
+                <div className="absolute right-0 mt-2 w-auto whitespace-nowrap min-w-max bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
                   {ELEARNING_ITEMS.map((item) => {
                     const Component = item.external ? "a" : "a";
                     const Icon = item.icon;
@@ -330,7 +330,7 @@ const Header = () => {
               </button>
 
               {isBlogOpen && (
-                <div className="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
+                <div className="absolute right-0 mt-2 w-auto whitespace-nowrap min-w-max bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
                   {BLOG_ITEMS.map((item) => {
                     const Component = item.external ? "a" : "a";
                     const Icon = item.icon;

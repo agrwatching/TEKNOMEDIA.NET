@@ -7,9 +7,9 @@ import Image from "next/image";
 const SLIDE_INTERVAL = 5000;
 
 const slides = [
-  { id: 1, image: "/hero-1.jpg", alt: "Education Technology" },
-  { id: 2, image: "/hero-2.jpg", alt: "Digital Learning" },
-  { id: 3, image: "/hero-3.jpg", alt: "E-Learning Platform" },
+  { id: 1, image: "/hero-12.jpeg", alt: "Education Technology" },
+  { id: 2, image: "/hero-11.jpeg", alt: "Digital Learning" },
+  { id: 3, image: "/hero-13.jpeg", alt: "E-Learning Platform" },
 ];
 
 const HeroSection = () => {

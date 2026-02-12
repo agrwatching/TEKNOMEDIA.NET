@@ -46,9 +46,9 @@ const teamMembers: TeamMember[] = [
   {
     image: "/pp2.jpg",
     name: "AGRA",
-    role: "E-Learning System Developer & Network Specialist",
+    role: "Chief Technology Officer (CTO)",
     description:
-      "Mengembangkan website company profile sekaligus merancang aplikasi berbasis web...",
+      "Memimpin inovasi teknologi perusahaan dengan keahlian dalam arsitektur sistem...",
     linkedin: "#",
     instagram: "#",
     facebook: "#",
@@ -59,9 +59,9 @@ const teamMembers: TeamMember[] = [
   {
     image: "/pp3.jpg",
     name: "YUSUF FAISAL",
-    role: "Windows Server Administrator & Infrastructure Engineer",
+    role: "Staff & Expertise",
     description:
-      "Mengelola dan mengoptimalkan server berbasis Windows untuk memastikan performa dan keamanan sistem perusahaan...",
+      "Spesialis konfigurasi Mikrotik, manajemen server, dan pengembangan aplikasi berbasis jaringan untuk infrastruktur IT yang handal.",
     linkedin: "#",
     instagram: "#",
     facebook: "#",
@@ -72,14 +72,40 @@ const teamMembers: TeamMember[] = [
   {
     image: "/pp4.jpeg",
     name: "MUHAMMAD RIZAL",
-    role: "Full Stack Web Developer & System Application Engineer",
+    role: "Staff & Expertise",
     description:
-      "Mengembangkan website company profile sekaligus merancang aplikasi berbasis web...",
+      "Software Engineer berpengalaman dalam membangun aplikasi web modern dengan fokus pada clean code dan best practices development.",
     linkedin: "#",
     instagram: "#",
     facebook: "#",
     twitter: "#",
     whatsapp: "+6285179718031",
+    isCore: true,
+  },
+    {
+    image: "/pp5.jpeg",
+    name: "SRI AYU LESTARI ",
+    role: "Staff & Expertise",
+    description:
+      "Ahli dalam manajemen bisnis dan strategi digital marketing untuk mengembangkan brand awareness dan pertumbuhan perusahaan.",
+    linkedin: "#",
+    instagram: "#",
+    facebook: "#",
+    twitter: "#",
+    whatsapp: "+62895389740013",
+    isCore: true,
+  },
+    {
+    image: "/pp6.jpeg",
+    name: "MUHAMMAD RIZKY SAPUTRA",
+    role: "Staff & Expertise",
+    description:
+      "Spesialis manajemen bisnis dan digital marketing dengan keahlian dalam mengoptimalkan strategi pemasaran online dan analisis data.",
+    linkedin: "#",
+    instagram: "#",
+    facebook: "#",
+    twitter: "#",
+    whatsapp: "+6282320543219",
     isCore: true,
   },
 ];
@@ -90,198 +116,352 @@ const TeamSection: React.FC<TeamSectionProps> = ({
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // Filter team members berdasarkan limit
-  const displayedMembers = limit ? teamMembers.slice(0, limit) : teamMembers;
+  // Pisahkan leadership (CEO & CTO) dan staff
+  const leadership = teamMembers.slice(0, 2);
+  const staff = teamMembers.slice(2);
 
   return (
     <section
       id="team"
       className="py-16 md:py-24 bg-slate-900 relative overflow-hidden"
     >
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        {/* Header Section - Simplified */}
+        {/* Header Section */}
         <div className="text-center mb-16 space-y-4">
           <div className="inline-block">
             <h2 className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-2">
-              <span className="inline-block mr-2">⚡</span>{" "}
-              {limit ? "Tim Inti Kami" : "Meet Our Team"}{" "}
+              <span className="inline-block mr-2">⚡</span> Meet Our Team{" "}
               <span className="inline-block ml-2">⚡</span>
             </h2>
             <div className="h-1 w-full bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
           </div>
 
           <h3 className="mt-4 text-4xl md:text-5xl font-extrabold text-white leading-tight">
-            {limit ? "Para Profesional di Balik" : "Kenali Seluruh Tim"}
+            Struktur Organisasi
             <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              {limit ? "Koneksi Andal Anda" : "Profesional Teknomedia"}
+              Tim Profesional Teknomedia & Edulab
             </span>
           </h3>
 
           <p className="mt-6 max-w-3xl text-lg text-gray-300 mx-auto leading-relaxed">
-            {limit
-              ? "Kami adalah perpaduan antara teknisi bersertifikasi dan ahli strategi bisnis yang berdedikasi."
-              : "Tim lengkap yang siap membantu kesuksesan teknologi dan bisnis Anda."}
+            Tim lengkap yang siap membantu kesuksesan teknologi dan bisnis Anda.
           </p>
         </div>
 
-        {/* Grid Anggota Tim - SEMUA ANIMASI CARD DIPERTAHANKAN! */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {displayedMembers.map((member, index) => (
-            <div
-              key={index}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className="group relative animate-fade-in-up h-full"
-              style={{ animationDelay: `${index * 0.15}s` }}
-            >
-              <div className="relative h-full flex flex-col bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-6 rounded-2xl border border-indigo-500/30 text-center transition-all duration-500 hover:border-indigo-400 hover:shadow-2xl hover:shadow-indigo-500/30 hover:-translate-y-3 overflow-hidden">
+        {/* Organizational Structure */}
+        <div className="space-y-8">
+          {/* Leadership Level - CEO & CTO */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="lg:col-start-2">
+              {leadership[0] && (
                 <div
-                  className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                    hoveredIndex === index
-                      ? "animate-shimmer"
-                      : ""
-                  }`}
-                  style={{
-                    background:
-                      "linear-gradient(45deg, transparent 30%, rgba(99, 102, 241, 0.1) 50%, transparent 70%)",
-                    backgroundSize: "200% 200%",
-                  }}
-                />
+                  onMouseEnter={() => setHoveredIndex(0)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="group relative"
+                >
+                  <div className="relative h-full flex flex-col bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-4 md:p-6 rounded-2xl border border-indigo-500/30 text-center transition-all duration-500 hover:border-indigo-400 hover:shadow-2xl hover:shadow-indigo-500/30 hover:-translate-y-3 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-indigo-500/50 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:border-indigo-400" />
+                    <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-purple-500/50 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:border-purple-400" />
 
-                <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-indigo-500/50 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:border-indigo-400" />
-                <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-purple-500/50 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:border-purple-400" />
+                    {/* Foto Tim */}
+                    <div className="relative mx-auto w-24 h-24 md:w-28 md:h-28 mb-4 flex-shrink-0">
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
 
-                <div
-                  className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-indigo-400 to-transparent transition-transform duration-1000 ${
-                    hoveredIndex === index
-                      ? "translate-y-0"
-                      : "-translate-y-full"
-                  }`}
-                />
-                <div
-                  className={`absolute bottom-0 right-0 w-full h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent transition-transform duration-1000 ${
-                    hoveredIndex === index
-                      ? "translate-y-0"
-                      : "translate-y-full"
-                  }`}
-                />
+                      <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-indigo-500/70 group-hover:border-indigo-400 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-indigo-500/50">
+                        <img
+                          src={leadership[0].image}
+                          alt={leadership[0].name}
+                          className="w-full h-full object-cover transform group-hover:scale-125 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </div>
 
-                {/* Foto Tim */}
-                <div className="relative mx-auto w-32 h-32 mb-6 flex-shrink-0">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
-                  <div
-                    className={`absolute inset-0 rounded-full border-2 border-dashed border-indigo-400/50 transition-all duration-700 ${
-                      hoveredIndex === index
-                        ? "rotate-180 scale-110"
-                        : "rotate-0"
-                    }`}
-                  />
+                      <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
 
-                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-indigo-500/70 group-hover:border-indigo-400 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-indigo-500/50">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      width={128}
-                      height={128}
-                      className="w-full h-full object-cover transform group-hover:scale-125 transition-transform duration-700"
-                    />
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-b from-transparent via-white/20 to-transparent ${
-                        hoveredIndex === index
-                          ? "animate-scan"
-                          : "opacity-0"
-                      }`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </div>
+                    {/* Content */}
+                    <div className="relative z-10 space-y-2 flex flex-col flex-grow">
+                      <h3 className="text-base md:text-lg font-bold text-white group-hover:text-indigo-300 transition-colors duration-300">
+                        {leadership[0].name}
+                      </h3>
 
-                  <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
+                      <div className="inline-block">
+                        <p className="text-xs md:text-sm font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300 min-h-[2.5rem]">
+                          {leadership[0].role}
+                        </p>
+                        <div className="h-0.5 w-full bg-gradient-to-r from-indigo-500 to-purple-500 mt-1 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                      </div>
 
-                {/* Content */}
-                <div className="relative z-10 space-y-3 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors duration-300">
-                    {member.name}
-                  </h3>
+                      <p className="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300 flex-grow">
+                        {leadership[0].description}
+                      </p>
 
-                  <div className="inline-block">
-                    <p className="text-sm font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300 min-h-[2.5rem]">
-                      {member.role}
-                    </p>
-                    <div className="h-0.5 w-full bg-gradient-to-r from-indigo-500 to-purple-500 mt-1 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                  </div>
+                      {/* Social Media Links */}
+                      <div className="pt-3 flex justify-center gap-2 flex-shrink-0">
+                        <a
+                          href={leadership[0].linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-blue-400 hover:bg-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="LinkedIn"
+                        >
+                          <Linkedin size={16} />
+                        </a>
+                        <a
+                          href={leadership[0].instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-pink-400 hover:bg-pink-500/20 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="Instagram"
+                        >
+                          <Instagram size={16} />
+                        </a>
+                        <a
+                          href={leadership[0].facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-blue-500 hover:bg-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="Facebook"
+                        >
+                          <Facebook size={16} />
+                        </a>
+                        <a
+                          href={leadership[0].twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-sky-400 hover:bg-sky-500/20 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="Twitter"
+                        >
+                          <Twitter size={16} />
+                        </a>
+                        <a
+                          href={`https://wa.me/${leadership[0].whatsapp}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-green-400 hover:bg-green-500/20 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="WhatsApp"
+                        >
+                          <MessageSquare size={16} />
+                        </a>
+                      </div>
+                    </div>
 
-                  <p className="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300 flex-grow min-h-[4.5rem]">
-                    {member.description}
-                  </p>
-
-                  <div className="pt-3 space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="h-1 bg-gradient-to-r from-indigo-600 to-indigo-400 rounded-full animate-expand w-[85%]" />
-                    <div className="h-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-full animate-expand w-[70%]" style={{ animationDelay: '0.2s' }} />
-                    <div className="h-1 bg-gradient-to-r from-pink-600 to-pink-400 rounded-full animate-expand w-[90%]" style={{ animationDelay: '0.4s' }} />
-                  </div>
-
-                  {/* Social Media Links */}
-                  <div className="pt-4 flex justify-center gap-3 flex-shrink-0">
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-slate-700/50 text-gray-400 hover:text-blue-400 hover:bg-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:scale-110 hover:-rotate-12"
-                      aria-label="LinkedIn"
-                    >
-                      <Linkedin size={18} />
-                    </a>
-                    <a
-                      href={member.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-slate-700/50 text-gray-400 hover:text-pink-400 hover:bg-pink-500/20 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 transform hover:scale-110 hover:rotate-12"
-                      aria-label="Instagram"
-                    >
-                      <Instagram size={18} />
-                    </a>
-                    <a
-                      href={member.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-slate-700/50 text-gray-400 hover:text-blue-500 hover:bg-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 transition-all duration-300 transform hover:scale-110 hover:-rotate-12"
-                      aria-label="Facebook"
-                    >
-                      <Facebook size={18} />
-                    </a>
-                    <a
-                      href={member.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-slate-700/50 text-gray-400 hover:text-sky-400 hover:bg-sky-500/20 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-300 transform hover:scale-110 hover:rotate-12"
-                      aria-label="Twitter"
-                    >
-                      <Twitter size={18} />
-                    </a>
-                    <a
-                      href={`https://wa.me/${member.whatsapp}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-slate-700/50 text-gray-400 hover:text-green-400 hover:bg-green-500/20 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 transform hover:scale-110 hover:-rotate-12"
-                      aria-label="WhatsApp"
-                    >
-                      <MessageSquare size={18} />
-                    </a>
+                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
                   </div>
                 </div>
-
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
-              </div>
+              )}
             </div>
-          ))}
+
+            <div>
+              {leadership[1] && (
+                <div
+                  onMouseEnter={() => setHoveredIndex(1)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="group relative"
+                >
+                  <div className="relative h-full flex flex-col bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-4 md:p-6 rounded-2xl border border-indigo-500/30 text-center transition-all duration-500 hover:border-indigo-400 hover:shadow-2xl hover:shadow-indigo-500/30 hover:-translate-y-3 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-indigo-500/50 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:border-indigo-400" />
+                    <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-purple-500/50 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:border-purple-400" />
+
+                    {/* Foto Tim */}
+                    <div className="relative mx-auto w-24 h-24 md:w-28 md:h-28 mb-4 flex-shrink-0">
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+
+                      <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-indigo-500/70 group-hover:border-indigo-400 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-indigo-500/50">
+                        <img
+                          src={leadership[1].image}
+                          alt={leadership[1].name}
+                          className="w-full h-full object-cover transform group-hover:scale-125 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </div>
+
+                      <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative z-10 space-y-2 flex flex-col flex-grow">
+                      <h3 className="text-base md:text-lg font-bold text-white group-hover:text-indigo-300 transition-colors duration-300">
+                        {leadership[1].name}
+                      </h3>
+
+                      <div className="inline-block">
+                        <p className="text-xs md:text-sm font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300 min-h-[2.5rem]">
+                          {leadership[1].role}
+                        </p>
+                        <div className="h-0.5 w-full bg-gradient-to-r from-indigo-500 to-purple-500 mt-1 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                      </div>
+
+                      <p className="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300 flex-grow">
+                        {leadership[1].description}
+                      </p>
+
+                      {/* Social Media Links */}
+                      <div className="pt-3 flex justify-center gap-2 flex-shrink-0">
+                        <a
+                          href={leadership[1].linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-blue-400 hover:bg-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="LinkedIn"
+                        >
+                          <Linkedin size={16} />
+                        </a>
+                        <a
+                          href={leadership[1].instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-pink-400 hover:bg-pink-500/20 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="Instagram"
+                        >
+                          <Instagram size={16} />
+                        </a>
+                        <a
+                          href={leadership[1].facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-blue-500 hover:bg-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="Facebook"
+                        >
+                          <Facebook size={16} />
+                        </a>
+                        <a
+                          href={leadership[1].twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-sky-400 hover:bg-sky-500/20 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="Twitter"
+                        >
+                          <Twitter size={16} />
+                        </a>
+                        <a
+                          href={`https://wa.me/${leadership[1].whatsapp}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-green-400 hover:bg-green-500/20 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 transform hover:scale-110"
+                          aria-label="WhatsApp"
+                        >
+                          <MessageSquare size={16} />
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Staff Level - 4 kolom desktop, 2 kolom mobile */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {staff.map((member, index) => (
+              <div
+                key={index + 2}
+                onMouseEnter={() => setHoveredIndex(index + 2)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className="group relative"
+              >
+                <div className="relative h-full flex flex-col bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm p-4 md:p-6 rounded-2xl border border-purple-500/30 text-center transition-all duration-500 hover:border-purple-400 hover:shadow-2xl hover:shadow-purple-500/30 hover:-translate-y-3 overflow-hidden">
+                  <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-purple-500/50 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:border-purple-400" />
+                  <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-pink-500/50 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:border-pink-400" />
+
+                  {/* Foto Tim */}
+                  <div className="relative mx-auto w-24 h-24 md:w-28 md:h-28 mb-4 flex-shrink-0">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+
+                    <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-purple-500/70 group-hover:border-purple-400 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-purple-500/50">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover transform group-hover:scale-125 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </div>
+
+                    <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+
+                  {/* Content */}
+                  <div className="relative z-10 space-y-2 flex flex-col flex-grow">
+                    <h3 className="text-base md:text-lg font-bold text-white group-hover:text-purple-300 transition-colors duration-300">
+                      {member.name}
+                    </h3>
+
+                    <div className="inline-block">
+                      <p className="text-xs md:text-sm font-semibold text-purple-400 group-hover:text-purple-300 transition-colors duration-300 min-h-[2.5rem]">
+                        {member.role}
+                      </p>
+                      <div className="h-0.5 w-full bg-gradient-to-r from-purple-500 to-pink-500 mt-1 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                    </div>
+
+                    <p className="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300 flex-grow">
+                      {member.description}
+                    </p>
+
+                    {/* Social Media Links */}
+                    <div className="pt-3 flex justify-center gap-2 flex-shrink-0">
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-blue-400 hover:bg-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:scale-110"
+                        aria-label="LinkedIn"
+                      >
+                        <Linkedin size={16} />
+                      </a>
+                      <a
+                        href={member.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-pink-400 hover:bg-pink-500/20 hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 transform hover:scale-110"
+                        aria-label="Instagram"
+                      >
+                        <Instagram size={16} />
+                      </a>
+                      <a
+                        href={member.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-blue-500 hover:bg-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 transition-all duration-300 transform hover:scale-110"
+                        aria-label="Facebook"
+                      >
+                        <Facebook size={16} />
+                      </a>
+                      <a
+                        href={member.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-sky-400 hover:bg-sky-500/20 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-300 transform hover:scale-110"
+                        aria-label="Twitter"
+                      >
+                        <Twitter size={16} />
+                      </a>
+                      <a
+                        href={`https://wa.me/${member.whatsapp}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-lg bg-slate-700/50 text-gray-400 hover:text-green-400 hover:bg-green-500/20 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 transform hover:scale-110"
+                        aria-label="WhatsApp"
+                      >
+                        <MessageSquare size={16} />
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Tombol View All */}
         {showViewAll && (
-          <div className="text-center mt-16 animate-fade-in-up" style={{ animationDelay: "0.8s" }}>
+          <div className="text-center mt-16">
             <Link
               href="/team"
               className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold rounded-full shadow-lg shadow-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/70 hover:scale-105 transition-all duration-300 relative overflow-hidden"

@@ -15,12 +15,28 @@ const teamPhotos = [
 // Data Mitra - SEMUA DINAMIS DARI SINI
 export const partners = [
   {
-    id: 1,
-    logo: "/vtnet.png",
-    name: "VTNet",
-    category: "Network Provider",
-    description: "Mitra resmi penyedia layanan internet & infrastruktur jaringan terpercaya.",
-    website: "https://vtnet.id/"
+    "id": 1,
+    "logo": "/teknomedia.jpeg",
+    "name": "PT Teknomedia Edukasi Nusantara",
+    "category": "Software House & Cloud Service",
+    "description": "Penyedia layanan pengembangan software kustom, aplikasi, serta infrastruktur VPS yang andal untuk berbagai kebutuhan digital.",
+    "website": "https://teknomedia.info/"
+  },
+  {
+    "id": 2,
+    "logo": "/vtnet.png",
+    "name": "PT Vaiotech Lintas Nusantara",
+    "category": "Internet Service Provider",
+    "description": "Mitra resmi penyedia layanan internet (ISP) dan infrastruktur jaringan terpercaya untuk skala bisnis maupun personal.",
+    "website": "https://vaiotech.id/"
+  },
+  {
+    "id": 3,
+    "logo": "/Edulab.png",
+    "name": "VTNet Edulab",
+    "category": "Education & Consultancy",
+    "description": "Menyediakan tenaga ahli (expertise) dan guru tamu profesional serta menjalin kolaborasi strategis antara institusi pendidikan dan industri.",
+    "website": "https://edulab.vtnet.id/"
   },
 ];
 
@@ -231,7 +247,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                       className="w-full py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-orange-500 text-white font-semibold text-center block transition-all duration-300 hover:shadow-lg hover:scale-105"
                     >
                       <span className="flex items-center justify-center">
-                        Kunjungi {partner.name}
+                        Lihat Detail
                         <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                         </svg>
