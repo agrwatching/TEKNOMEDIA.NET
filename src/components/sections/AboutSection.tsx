@@ -16,7 +16,7 @@ const teamPhotos = [
 export const partners = [
   {
     "id": 1,
-    "logo": "/teknomedia.jpeg",
+    "logo": "/teknomedia.png",
     "name": "PT Teknomedia Edukasi Nusantara",
     "category": "Software House & Cloud Service",
     "description": "Penyedia layanan pengembangan software kustom, aplikasi, serta infrastruktur VPS yang andal untuk berbagai kebutuhan digital.",
@@ -32,6 +32,14 @@ export const partners = [
   },
   {
     "id": 3,
+    "logo": "/tplink.png",
+    "name": "TP-Link",
+    "category": "Networking & Telecommunications",
+    "description": "Penyedia perangkat WLAN dan broadband global yang menghadirkan solusi jaringan inovatif untuk kebutuhan rumah tangga, bisnis kecil, hingga menengah.",
+    "website": "https://www.tp-link.com/"
+  },
+    {
+    "id": 4,
     "logo": "/Edulab.png",
     "name": "VTNet Edulab",
     "category": "Education & Consultancy",

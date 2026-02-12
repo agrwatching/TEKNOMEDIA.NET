@@ -29,7 +29,7 @@ title: {
     siteName: "Teknomedia",
     images: [
       {
-        url: "/teknomedia.jpeg",
+        url: "/teknomedia.png",
         width: 1200,
         height: 630,
       },
@@ -39,11 +39,11 @@ title: {
   },
   icons: {
     icon: [
-      { url: '/teknomedia.jpeg' }, // Standar
-      { url: '/teknomedia.jpeg', sizes: '192x192', type: 'image/jpeg' }, // High res
+      { url: '/teknomedia.png' }, // Standar
+      { url: '/teknomedia.png', sizes: '192x192', type: 'image/jpeg' }, // High res
     ],
     apple: [
-      { url: '/teknomedia.jpeg' }, // Untuk perangkat Apple
+      { url: '/teknomedia.png' }, // Untuk perangkat Apple
     ],
   },
 };

@@ -83,7 +83,7 @@ const teamMembers: TeamMember[] = [
     isCore: true,
   },
     {
-    image: "/pp5.jpeg",
+    image: "/pp5.png",
     name: "SRI AYU LESTARI ",
     role: "Staff & Expertise",
     description:

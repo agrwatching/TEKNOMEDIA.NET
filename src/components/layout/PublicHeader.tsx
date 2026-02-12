@@ -179,7 +179,7 @@ const Header = () => {
           <a href="/" className="flex items-center space-x-3 group">
             <div className="relative">
               <Image
-                src="/teknomedia.jpeg"
+                src="/teknomedia.png"
                 alt="Teknomedia Logo"
                 width={48}
                 height={48}
