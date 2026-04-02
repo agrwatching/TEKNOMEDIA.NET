@@ -46,7 +46,7 @@ const teamMembers: TeamMember[] = [
   {
     image: "/pp2.jpg",
     name: "AGRA",
-    role: "Chief Technology Officer (CTO)",
+    role: "Staff & Expertise",
     description:
       "Memimpin inovasi teknologi perusahaan dengan keahlian dalam arsitektur sistem...",
     linkedin: "#",
