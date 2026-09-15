@@ -8,7 +8,7 @@ const SLIDE_INTERVAL = 5000;
 
 const slides = [
   { id: 1, image: "/hero-12.jpeg", alt: "Education Technology" },
-  { id: 2, image: "/hero-11.jpeg", alt: "Digital Learning" },
+  { id: 2, image: "/g2.jpg", alt: "Digital Learning" },
   { id: 3, image: "/hero-13.jpeg", alt: "E-Learning Platform" },
 ];
 
@@ -26,7 +26,6 @@ const HeroSection = () => {
 
   // ✨ Text Animation Trigger
   useEffect(() => {
-    setTextVisible(false);
     const textTimer = setTimeout(() => setTextVisible(true), 300);
     return () => clearTimeout(textTimer);
   }, [currentSlide]);

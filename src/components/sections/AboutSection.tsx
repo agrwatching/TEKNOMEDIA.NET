@@ -104,6 +104,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
                       src={photo.src}
                       alt={photo.alt}
                       fill
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
                       className="object-cover transition-transform duration-300 hover:scale-110"
                     />
                   </div>

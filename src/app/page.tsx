@@ -13,6 +13,7 @@ import PricingSection from "@/components/sections/PricingSection";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.teknomedia.info'),
   title: "TEKNOMEDIA | Solusi Edukasi & Teknologi Digital Indonesia",
   description: "Platform terbaik untuk layanan edukasi berbasis industri, solusi IT, dan portal berita teknologi terkini di Teknomedia.",
   keywords: [

@@ -76,6 +76,12 @@ const ConsultationSection = () => {
     }
   }, []);
 
+    const scrollToBottom = () => {
+    if (messagesContainerRef.current && !isInitialMount.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  };
+
   useEffect(() => {
     // Mark bahwa initial mount sudah selesai
     if (isInitialMount.current) {
@@ -89,11 +95,6 @@ const ConsultationSection = () => {
     inputRef.current?.focus();
   }, [currentStep]);
 
-  const scrollToBottom = () => {
-    if (messagesContainerRef.current && !isInitialMount.current) {
-      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
-    }
-  };
 
   const addBotMessage = (text: string) => {
     setIsTyping(true);

@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.teknomedia.info'),
 title: {
     default: "TEKNOMEDIA - Solusi Edukasi Teknologi",
     template: "%s | TEKNOMEDIA" // Jadi kalau di page lain title-nya "Blog", bakal muncul "Blog | TEKNOMEDIA"
