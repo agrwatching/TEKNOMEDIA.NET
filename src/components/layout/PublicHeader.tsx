@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, Sparkles, Users, MessageCircle, Trophy, UsersRound, Image as ImageIcon, BookOpen, ShoppingCart, Flame, School, type LucideIcon } from "lucide-react";
 import Image from "next/image";
@@ -155,6 +156,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBlogOpen, setIsBlogOpen] = useState(false);
   const [isElearningOpen, setIsElearningOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Mobile accordion states (di dalam drawer)
   const [isMobileMenuSectionOpen, setIsMobileMenuSectionOpen] = useState(false);
@@ -167,6 +169,10 @@ const Header = () => {
 
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -209,167 +215,176 @@ const Header = () => {
   const textColor = isTransparent ? "text-white" : "text-gray-900";
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled || !isHomePage ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-transparent"
-      }`}
-    >
-      <div className={`h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-green-400 transform origin-left transition-all duration-700 ${isScrolled ? "scale-x-100" : "scale-x-0"}`} />
-
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative">
-              <Image
-                src="/teknomedia.png"
-                alt="Teknomedia Logo"
-                width={48}
-                height={48}
-                className="rounded-full transform group-hover:scale-110 transition-transform duration-300 relative z-10 border-2 border-white/20"
-                priority
-              />
-              <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-            <div className="flex flex-col leading-tight">
-              <h1 className={`text-lg font-black ${isTransparent ? "text-white" : "bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-transparent"} transform group-hover:scale-105 transition-transform duration-300`}>
-                PT TEKNOMEDIA
-              </h1>
-              <span className={`text-sm font-semibold ${isTransparent ? "text-white/90" : "bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-transparent"} transform group-hover:scale-105 transition-transform duration-300`}>
-                EDUKASI NUSANTARA
-              </span>
-            </div>
-          </Link>
-
-          {/* Desktop Menu (unchanged) */}
-          <div className="hidden md:flex items-center space-x-8">
-            <NavLinkItem href="/" isTransparent={isTransparent}>Home</NavLinkItem>
-
-            <div className="relative" ref={menuDropdownRef}>
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className={`relative py-1 ${textColor} font-semibold flex items-center transition-colors duration-300 ${isMenuOpen ? "text-blue-600" : "hover:text-blue-600"}`}
-              >
-                Menu
-                <ChevronDown size={16} className={`ml-1 transition-transform duration-300 ${isMenuOpen ? "rotate-180" : "rotate-0"}`} />
-                <span className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-300 ${isMenuOpen ? "w-full" : "w-0 hover:w-full"}`} />
-              </button>
-              {isMenuOpen && <DesktopDropdownPanel items={MENU_ITEMS} onItemClick={() => setIsMenuOpen(false)} />}
-            </div>
-
-            <div className="relative" ref={elearningDropdownRef}>
-              <button
-                onClick={() => setIsElearningOpen(!isElearningOpen)}
-                className={`relative py-1 ${textColor} font-semibold flex items-center transition-colors duration-300 ${isElearningOpen ? "text-blue-600" : "hover:text-blue-600"}`}
-              >
-                E-Learning
-                <ChevronDown size={16} className={`ml-1 transition-transform duration-300 ${isElearningOpen ? "rotate-180" : "rotate-0"}`} />
-                <span className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-300 ${isElearningOpen ? "w-full" : "w-0 hover:w-full"}`} />
-              </button>
-              {isElearningOpen && <DesktopDropdownPanel items={ELEARNING_ITEMS} onItemClick={() => setIsElearningOpen(false)} />}
-            </div>
-
-            <div className="relative" ref={blogDropdownRef}>
-              <button
-                onClick={() => setIsBlogOpen(!isBlogOpen)}
-                className={`relative py-1 ${textColor} font-semibold flex items-center transition-colors duration-300 ${isBlogOpen ? "text-blue-600" : "hover:text-blue-600"}`}
-              >
-                Blog
-                <ChevronDown size={16} className={`ml-1 transition-transform duration-300 ${isBlogOpen ? "rotate-180" : "rotate-0"}`} />
-                <span className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-300 ${isBlogOpen ? "w-full" : "w-0 hover:w-full"}`} />
-              </button>
-              {isBlogOpen && <DesktopDropdownPanel items={BLOG_ITEMS} onItemClick={() => setIsBlogOpen(false)} />}
-            </div>
-
-            <NavLinkItem href="/contact" isTransparent={isTransparent}>Contact</NavLinkItem>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className={`md:hidden ${textColor} p-2 rounded-lg hover:bg-white/10 transition-all duration-300`}
-            onClick={() => setIsMobileMenuOpen(true)}
-            aria-label="Buka menu"
-          >
-            <Menu size={24} />
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Drawer: backdrop */}
-      <div
-        className={`fixed inset-0 z-[60] bg-gray-900/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 will-change-transform ${
+          isScrolled || !isHomePage ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-transparent"
         }`}
-        onClick={closeMobileMenu}
-      />
-
-      {/* Mobile Drawer: panel geser dari kanan */}
-      <div
-        className={`fixed inset-y-0 right-0 z-[70] h-full w-[85%] max-w-sm bg-white shadow-2xl transition-transform duration-300 ease-in-out md:hidden ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        style={{ transform: "translateZ(0)" }}
       >
-        <div className="flex h-full flex-col overflow-y-auto">
-          {/* Header drawer */}
-          <div className="flex items-center justify-between border-b border-gray-100 px-5 py-5">
-            <div className="flex items-center gap-2">
-              <Image src="/teknomedia.png" alt="Teknomedia Logo" width={32} height={32} className="rounded-full" />
-              <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-sm font-black text-transparent">
-                TEKNOMEDIA
-              </span>
+        <div className={`h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-green-400 transform origin-left transition-all duration-700 ${isScrolled ? "scale-x-100" : "scale-x-0"}`} />
+
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="relative">
+                <Image
+                  src="/teknomedia.png"
+                  alt="Teknomedia Logo"
+                  width={48}
+                  height={48}
+                  className="rounded-full transform group-hover:scale-110 transition-transform duration-300 relative z-10 border-2 border-white/20"
+                  priority
+                />
+                <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <h1 className={`text-lg font-black ${isTransparent ? "text-white" : "bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-transparent"} transform group-hover:scale-105 transition-transform duration-300`}>
+                  PT TEKNOMEDIA
+                </h1>
+                <span className={`text-sm font-semibold ${isTransparent ? "text-white/90" : "bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-transparent"} transform group-hover:scale-105 transition-transform duration-300`}>
+                  EDUKASI NUSANTARA
+                </span>
+              </div>
+            </Link>
+
+            {/* Desktop Menu (unchanged) */}
+            <div className="hidden md:flex items-center space-x-8">
+              <NavLinkItem href="/" isTransparent={isTransparent}>Home</NavLinkItem>
+
+              <div className="relative" ref={menuDropdownRef}>
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className={`relative py-1 ${textColor} font-semibold flex items-center transition-colors duration-300 ${isMenuOpen ? "text-blue-600" : "hover:text-blue-600"}`}
+                >
+                  Menu
+                  <ChevronDown size={16} className={`ml-1 transition-transform duration-300 ${isMenuOpen ? "rotate-180" : "rotate-0"}`} />
+                  <span className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-300 ${isMenuOpen ? "w-full" : "w-0 hover:w-full"}`} />
+                </button>
+                {isMenuOpen && <DesktopDropdownPanel items={MENU_ITEMS} onItemClick={() => setIsMenuOpen(false)} />}
+              </div>
+
+              <div className="relative" ref={elearningDropdownRef}>
+                <button
+                  onClick={() => setIsElearningOpen(!isElearningOpen)}
+                  className={`relative py-1 ${textColor} font-semibold flex items-center transition-colors duration-300 ${isElearningOpen ? "text-blue-600" : "hover:text-blue-600"}`}
+                >
+                  E-Learning
+                  <ChevronDown size={16} className={`ml-1 transition-transform duration-300 ${isElearningOpen ? "rotate-180" : "rotate-0"}`} />
+                  <span className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-300 ${isElearningOpen ? "w-full" : "w-0 hover:w-full"}`} />
+                </button>
+                {isElearningOpen && <DesktopDropdownPanel items={ELEARNING_ITEMS} onItemClick={() => setIsElearningOpen(false)} />}
+              </div>
+
+              <div className="relative" ref={blogDropdownRef}>
+                <button
+                  onClick={() => setIsBlogOpen(!isBlogOpen)}
+                  className={`relative py-1 ${textColor} font-semibold flex items-center transition-colors duration-300 ${isBlogOpen ? "text-blue-600" : "hover:text-blue-600"}`}
+                >
+                  Blog
+                  <ChevronDown size={16} className={`ml-1 transition-transform duration-300 ${isBlogOpen ? "rotate-180" : "rotate-0"}`} />
+                  <span className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-green-500 transition-all duration-300 ${isBlogOpen ? "w-full" : "w-0 hover:w-full"}`} />
+                </button>
+                {isBlogOpen && <DesktopDropdownPanel items={BLOG_ITEMS} onItemClick={() => setIsBlogOpen(false)} />}
+              </div>
+
+              <NavLinkItem href="/contact" isTransparent={isTransparent}>Contact</NavLinkItem>
             </div>
+
+            {/* Mobile Menu Button */}
             <button
-              onClick={closeMobileMenu}
-              className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-800"
-              aria-label="Tutup menu"
+              className={`md:hidden ${textColor} p-2 rounded-lg hover:bg-white/10 transition-all duration-300`}
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Buka menu"
             >
-              <X size={22} />
+              <Menu size={24} />
             </button>
           </div>
-
-          {/* Isi drawer */}
-          <div className="flex-1">
-            <Link
-              href="/"
-              onClick={closeMobileMenu}
-              className="block border-b border-gray-100 px-5 py-4 font-semibold text-gray-800 transition-colors hover:text-blue-600"
-            >
-              Home
-            </Link>
-
-            <MobileAccordionSection
-              label="Menu"
-              isOpen={isMobileMenuSectionOpen}
-              onToggle={() => setIsMobileMenuSectionOpen((v) => !v)}
-              items={MENU_ITEMS}
-              onItemClick={closeMobileMenu}
-            />
-            <MobileAccordionSection
-              label="E-Learning"
-              isOpen={isMobileElearningSectionOpen}
-              onToggle={() => setIsMobileElearningSectionOpen((v) => !v)}
-              items={ELEARNING_ITEMS}
-              onItemClick={closeMobileMenu}
-            />
-            <MobileAccordionSection
-              label="Blog"
-              isOpen={isMobileBlogSectionOpen}
-              onToggle={() => setIsMobileBlogSectionOpen((v) => !v)}
-              items={BLOG_ITEMS}
-              onItemClick={closeMobileMenu}
-            />
-
-            <Link
-              href="/contact"
-              onClick={closeMobileMenu}
-              className="block border-b border-gray-100 px-5 py-4 font-semibold text-gray-800 transition-colors hover:text-blue-600"
-            >
-              Contact
-            </Link>
-          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {mounted &&
+        createPortal(
+          <>
+            {/* Mobile Drawer: backdrop */}
+            <div
+              className={`fixed inset-0 z-[60] bg-gray-900/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+                isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+              }`}
+              onClick={closeMobileMenu}
+            />
+
+            {/* Mobile Drawer: panel geser dari kanan */}
+            <div
+              className={`fixed inset-y-0 right-0 z-[70] h-full w-[85%] max-w-sm bg-white shadow-2xl transition-transform duration-300 ease-in-out md:hidden ${
+                isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+              }`}
+            >
+              <div className="flex h-full flex-col overflow-y-auto">
+                {/* Header drawer */}
+                <div className="flex items-center justify-between border-b border-gray-100 px-5 py-5">
+                  <div className="flex items-center gap-2">
+                    <Image src="/teknomedia.png" alt="Teknomedia Logo" width={32} height={32} className="rounded-full" />
+                    <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 bg-clip-text text-sm font-black text-transparent">
+                      TEKNOMEDIA
+                    </span>
+                  </div>
+                  <button
+                    onClick={closeMobileMenu}
+                    className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-800"
+                    aria-label="Tutup menu"
+                  >
+                    <X size={22} />
+                  </button>
+                </div>
+
+                {/* Isi drawer */}
+                <div className="flex-1">
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className="block border-b border-gray-100 px-5 py-4 font-semibold text-gray-800 transition-colors hover:text-blue-600"
+                  >
+                    Home
+                  </Link>
+
+                  <MobileAccordionSection
+                    label="Menu"
+                    isOpen={isMobileMenuSectionOpen}
+                    onToggle={() => setIsMobileMenuSectionOpen((v) => !v)}
+                    items={MENU_ITEMS}
+                    onItemClick={closeMobileMenu}
+                  />
+                  <MobileAccordionSection
+                    label="E-Learning"
+                    isOpen={isMobileElearningSectionOpen}
+                    onToggle={() => setIsMobileElearningSectionOpen((v) => !v)}
+                    items={ELEARNING_ITEMS}
+                    onItemClick={closeMobileMenu}
+                  />
+                  <MobileAccordionSection
+                    label="Blog"
+                    isOpen={isMobileBlogSectionOpen}
+                    onToggle={() => setIsMobileBlogSectionOpen((v) => !v)}
+                    items={BLOG_ITEMS}
+                    onItemClick={closeMobileMenu}
+                  />
+
+                  <Link
+                    href="/contact"
+                    onClick={closeMobileMenu}
+                    className="block border-b border-gray-100 px-5 py-4 font-semibold text-gray-800 transition-colors hover:text-blue-600"
+                  >
+                    Contact
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </>,
+          document.body
+        )}
+    </>
   );
 };
 
